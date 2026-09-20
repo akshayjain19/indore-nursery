@@ -1,0 +1,27 @@
+section{padding:76px 0}
+section.alt{background:var(--cream2)}
+h2.sec{font-size:clamp(1.75rem,3vw,2.45rem);color:var(--forest);text-align:center;margin-bottom:12px;font-weight:600}
+h2.sec em{font-style:italic;color:var(--pine)}
+p.sub{text-align:center;color:var(--muted);margin:0 auto 46px;max-width:560px}
+.eyebrow{display:block;text-align:center;color:var(--lime2);font-size:.76rem;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:26px}
+.card{background:var(--card);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);transition:.3s;position:relative}
+.card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(22,48,31,.18)}
+.card img{width:100%;height:240px;object-fit:cover;transition:.5s}
+.card:hover img{transform:scale(1.05)}
+.card .body{padding:18px 18px 22px}
+.card h3{font-size:1.05rem;color:var(--forest);margin-bottom:6px}
+.wa-mini{position:absolute;right:14px;bottom:14px;background:#25D366;color:#fff;border-radius:999px;padding:9px 16px;font-size:.76rem;font-weight:600;opacity:0;transform:translateY(8px);transition:.25s;box-shadow:0 6px 16px rgba(0,0,0,.22)}
+.card:hover .wa-mini{opacity:1;transform:none}
+.rail{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 4px 18px}
+.rail .card{min-width:272px;scroll-snap-align:start}
+.rail::-webkit-scrollbar{height:8px}
+.rail::-webkit-scrollbar-thumb{background:#cfe0c2;border-radius:8px}
+.price{color:var(--pine);font-weight:700;font-size:1.05rem}
+.old{color:#a8a8a0;text-decoration:line-through;font-size:.85rem;font-weight:400;margin-left:8px}
+.tile-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:22px}
+.tile{position:relative;border-radius:var(--r);overflow:hidden;height:235px;box-shadow:var(--shadow)}
+.tile img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.tile:hover img{transform:scale(1.08)}
+.tile .tcap{position:absolute;inset:auto 0 0 0;background:linear-gradient(transparent,rgba(10,25,13,.86));color:#fff;padding:36px 18px 16px;font-family:'Fraunces',serif;font-size:1.2rem}
+.tile .tcap small{display:block;font-family:'Jost',sans-serif;font-size:.76rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--lime);margin-top:5px}

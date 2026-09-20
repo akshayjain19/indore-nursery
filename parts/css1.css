@@ -1,0 +1,26 @@
+:root{--forest:#16301f;--forest2:#1f4d2e;--pine:#2d6a4f;--cream:#faf6ec;--cream2:#f1ead9;--lime:#a8c93a;--lime2:#8fb524;--gold:#c9a227;--ink:#22301f;--muted:#66755e;--card:#fff;--shadow:0 10px 30px rgba(22,48,31,.12);--r:18px}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',system-ui,'Segoe UI',sans-serif;background:var(--cream);color:var(--ink);line-height:1.65}
+h1,h2,h3,h4,.logo{font-family:'Fraunces',Georgia,serif}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+.container{max-width:1220px;margin:0 auto;padding:0 22px}
+.announce{background:var(--forest);color:#e9f3e0;font-size:.78rem;letter-spacing:.4px;padding:8px 0;overflow:hidden;white-space:nowrap}
+header{background:rgba(250,246,236,.94);backdrop-filter:blur(8px);position:sticky;top:0;z-index:50;border-bottom:1px solid #e6dec8}
+.hd{display:flex;align-items:center;gap:26px;padding:15px 22px}
+.logo{font-size:1.45rem;font-weight:600;color:var(--forest);letter-spacing:.3px}
+.logo span{color:var(--lime2);font-style:italic}
+nav.main{display:flex;gap:22px;margin-left:auto;font-size:.78rem;font-weight:500;text-transform:uppercase;letter-spacing:1.4px}
+nav.main a{padding:6px 2px;border-bottom:2px solid transparent;transition:.2s}
+nav.main a:hover{color:var(--pine);border-color:var(--lime)}
+.hd-wa{margin-left:6px}
+.burger{display:none;background:none;border:0;font-size:1.6rem;color:var(--forest);cursor:pointer}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(320px,85%);background:var(--forest);color:#eef5e6;z-index:100;transform:translateX(100%);transition:.3s;padding:26px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+.drawer.open{transform:none}
+.drawer .x{align-self:flex-end;background:none;border:0;color:#fff;font-size:1.5rem;cursor:pointer;padding:6px}
+.drawer a{padding:13px 4px;border-bottom:1px solid rgba(255,255,255,.08);font-size:1.02rem}
+.drawer a:hover{color:var(--lime)}
+.wa-float{position:fixed;bottom:24px;right:24px;background:#25D366;color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 8px 20px rgba(0,0,0,.25);z-index:60;transition:.2s}
+.wa-float:hover{transform:scale(1.08)}
+#top{position:fixed;bottom:92px;right:28px;background:var(--forest);color:#fff;width:44px;height:44px;border-radius:50%;display:none;align-items:center;justify-content:center;z-index:60;box-shadow:var(--shadow);border:0;cursor:pointer;font-size:1.1rem}

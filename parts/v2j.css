@@ -1,0 +1,12 @@
+/* ===== Announcement bar v3 — moving chip strip ===== */
+.announce{background:linear-gradient(90deg,#0e2415,#1f4d2e 50%,#0e2415);position:relative;overflow:hidden;font-size:.84rem}
+.announce:before,.announce:after{content:"";position:absolute;top:0;bottom:0;width:110px;z-index:2;pointer-events:none}
+.announce:before{left:0;background:linear-gradient(90deg,#0e2415,transparent)}
+.announce:after{right:0;background:linear-gradient(-90deg,#0e2415,transparent)}
+.an-track{display:flex;gap:12px;width:max-content;animation:anscroll 28s linear infinite;padding:9px 0}
+.announce:hover .an-track{animation-play-state:paused}
+@keyframes anscroll{to{transform:translateX(calc(-50% - 6px))}}
+.an-pill{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(168,201,58,.5);border-radius:999px;padding:4px 15px;background:rgba(255,255,255,.05);color:#fff;font-size:.82rem;white-space:nowrap}
+.an-pill b{color:var(--lime);font-weight:600}
+.an-pill a{color:#fff;text-decoration:none}
+.an-pill a:hover{color:var(--lime)}

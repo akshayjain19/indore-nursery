@@ -1,0 +1,11 @@
+.crumbs{font-size:.85rem;color:#6b7a6e;margin:18px 0 0}
+.crumbs a{color:var(--pine)}
+.season-hero{background:var(--cream);border:1px solid #e8e0cd;border-radius:var(--r);padding:34px 34px 28px;margin:18px 0 30px}
+.season-hero h1{margin:0 0 6px;font-family:'Fraunces',serif;font-size:clamp(1.7rem,4vw,2.4rem);color:var(--forest)}
+.season-hero .sub{color:#4c5c50;max-width:640px;line-height:1.6;margin:0}
+.season-hero .count{margin:14px 0 0;font-size:.9rem;color:#6b7a6e;font-weight:600}
+.season-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.season-tabs a{padding:7px 16px;border-radius:999px;border:1px solid #d8d0ba;font-size:.88rem;color:var(--forest);text-decoration:none;background:#fff}
+.season-tabs a.active{background:var(--forest);color:#fff;border-color:var(--forest)}
+.season-hero.summer{border-color:#e9c46a}.season-hero.monsoon{border-color:#8ab6d6}.season-hero.winter{border-color:#b8c4d6}.season-hero.year{border-color:var(--lime)}
+.season-hero.summer h1{color:#b3541e}.season-hero.monsoon h1{color:#2d6a4f}.season-hero.winter h1{color:#3a5a80}
