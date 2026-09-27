@@ -13,6 +13,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
+from lib.brand import client_logo_marquee_html
 from lib.config import PLANTS_JSON, POTS_JSON, SITE_URL, WA_PHONE
 from lib.presentation import (
     blog_featured_image,
@@ -95,15 +96,15 @@ def pot_card(m, featured=False):
 
 def home_page():
     pillars = [
-        ("01", "Plants", "Curated plants for homes and everyday spaces.", "img/home/indoor.jpg", "/plants/", "Explore Plants"),
-        ("02", "Pots & Planters", "Statement planters, eco collections and functional pots.", "images/2024_10_Milano-High-LED-1-scaled.jpg", "/pots/", "Explore Pots"),
-        ("03", "Green Spaces", "Corporate greenery, rentals, landscaping and installations.", "images/2022_05_013A1506.jpg", "/green-spaces/", "Talk to Us"),
+        ("01", "Plants", "img/home/indoor.jpg", "/plants/", "Explore Plants"),
+        ("02", "Pots & Planters", "images/2024_10_Milano-High-LED-1-scaled.jpg", "/pots/", "Explore Pots"),
+        ("03", "Green Spaces", "images/2022_05_013A1506.jpg", "/green-spaces/", "Talk to Us"),
     ]
     pillar_html = "".join(
         f'<a class="pillar reveal" href="{href}"><img loading="lazy" src="/{img}" alt=""><div class="veil"></div>'
-        f'<div class="content"><span class="num">{num}</span><h3>{esc(title)}</h3><p>{esc(text)}</p>'
+        f'<div class="content"><span class="num">{num}</span><h3>{esc(title)}</h3>'
         f'<span class="link">{cta} →</span></div></a>'
-        for num, title, text, img, href, cta in pillars
+        for num, title, img, href, cta in pillars
     )
     featured_pots = "".join(pot_card(m, featured=(i == 0)) for i, m in enumerate(ACTIVE_POTS[:5]))
     curated = "".join(plant_card(p) for p in ACTIVE_PLANTS[:12])
@@ -118,7 +119,7 @@ def home_page():
 <section class="hero-v4 hero-editorial" data-motion="fade-up"><div class="inner">
 <span class="kicker">More than a nursery</span>
 <h1>Plants for homes.<br>Pots for spaces.<br>Greenery for business.</h1>
-<p class="lead">A premium botanical and green-space studio — curated plants, designer planters, and enquiry-led solutions for offices, landscapes and events.</p>
+<p class="lead">Indoor and outdoor plants, designer planters, and green-space styling for homes, offices and events across Indore.</p>
 <div class="hero-actions">
 <a class="btn" href="/plants/">Explore Plants</a>
 <a class="btn ghost" href="/pots/">Explore Pots</a>
@@ -132,15 +133,13 @@ def home_page():
 
 <section class="pots-editorial alt"><div class="container">
 <div class="split-head" data-motion="fade-up">
-<div><span class="eyebrow">Pots &amp; planters</span><h2 class="sec sec-display">Collections that define a room</h2>
-<p class="sub">Eco series, statement silhouettes and illuminated planters — enquire on WhatsApp with your size and colour.</p></div>
+<div><span class="eyebrow">Pots &amp; planters</span><h2 class="sec sec-display">Collections that define a room</h2></div>
 <a class="btn" href="/pots/">View all pots</a></div>
 <div class="pot-rail">{featured_pots}</div></div></section>
 
 <section class="section-breathe"><div class="container">
 <div class="split-head" data-motion="fade-up"><div><span class="eyebrow">Curated plants</span>
-<h2 class="sec sec-display">Curated for greener spaces</h2>
-<p class="sub">Twenty nursery favourites — not an endless catalog.</p></div>
+<h2 class="sec sec-display">Curated for greener spaces</h2></div>
 <a class="btn ghost" href="/plants/">Shop all plants</a></div>
 <div class="plant-rail">{curated}</div></div></section>
 
@@ -149,7 +148,6 @@ def home_page():
 <div class="container green-spaces-inner">
 <span class="eyebrow light">Green spaces</span>
 <h2 class="sec-display light">From one office plant to a fully landscaped space.</h2>
-<p class="green-lede">Corporate plant rental, maintenance, commercial greenery, landscaping and event installations — professionally delivered, enquiry-led.</p>
 <nav class="green-nav" aria-label="Green space services">
 <a href="/green-spaces/corporate-plant-rental/"><span>01</span><strong>Corporate plant rental</strong><small>Lobbies, living walls, workspace greens</small></a>
 <a href="/green-spaces/maintenance/"><span>02</span><strong>Plant maintenance</strong><small>Care for installed plant programs</small></a>
@@ -163,30 +161,24 @@ def home_page():
 <div class="work-layout" data-motion="fade-up">
 <div class="work-visual">
 <img loading="lazy" src="/images/2022_05_013A1506.jpg" alt="Green space installation by Indore Nursery">
-<p class="work-note">Photography from our nursery and event work — additional project images will be added as they are supplied.</p>
 </div>
 <div class="work-copy">
 <span class="eyebrow">Our work</span>
 <h2 class="sec sec-display">Spaces we help grow</h2>
-<p class="sub">Corporate, hospitality, landscaping and celebrations — structured for real project photography when ready.</p>
 <ul class="work-cats">
-<li><a href="/events/corporate/">Corporate &amp; hospitality</a></li>
-<li><a href="/events/weddings/">Weddings &amp; celebrations</a></li>
+<li><a href="/events/corporate/">Corporate</a></li>
 <li><a href="/green-spaces/landscaping/">Landscaping</a></li>
-<li><a href="/events/">Events &amp; decor</a></li>
+<li><a href="/events/">Events</a></li>
+<li><a href="/events/weddings/">Weddings</a></li>
+<li><a href="/events/corporate/">Hospitality</a></li>
+<li><a href="/events/corporate/">Commercial</a></li>
 </ul>
 <a class="btn" href="/events/">Explore our work</a>
 </div></div></div></section>
 
 <section class="clients-band"><div class="container center" data-motion="fade-up">
-<span class="eyebrow">Clients</span>
 <h2 class="sec sec-display">Spaces we&apos;ve helped grow</h2>
-<div class="client-strip client-strip-home"><b>PRIDE Hotels</b><b>&#2360;&#2371;&#2332;&#2344;</b><b>SAJDHAJ</b><b>&#2354;&#2325;&#2381;&#2359;&#2381;&#2350;&#2368; Sweets</b><b>Kashiwal Honda</b></div>
-</div></section>
-
-<section class="section-breathe"><div class="container"><div class="reviews-placeholder reveal" data-motion="fade-up">
-<h3>Client reviews</h3>
-<p>Verified reviews will be added here when available — we don&apos;t publish placeholder testimonials.</p></div></div></section>
+{client_logo_marquee_html()}</div></section>
 
 <section class="journal-editorial alt"><div class="container" data-motion="fade-up">
 <div class="split-head"><div><span class="eyebrow">Journal</span><h2 class="sec sec-display">Notes from the nursery</h2></div>
@@ -217,7 +209,7 @@ def plants_hub():
     grid = "".join(plant_card(p) for p in ACTIVE_PLANTS)
     body = f"""<div class="container listing-hd" data-motion="fade-up">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Plants</nav>
-<h1>Shop plants</h1><p class="sub">A curated collection — lightweight filters, WhatsApp-first enquiry.</p>
+<h1>Shop plants</h1>
 <div class="filters" role="group" aria-label="Plant filters">{filters}</div>
 <div class="grid" id="plant-grid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr))">{grid}</div></div>"""
     return page_shell("Shop Plants | Indore Nursery", "Curated indoor and outdoor plants with WhatsApp enquiry.", body, "/plants/")
@@ -252,7 +244,7 @@ def pots_hub():
         cards = "".join(pot_card(m) for m in items)
         blocks += f'<section class="container" style="padding-top:40px"><span class="eyebrow">{esc(col)}</span><h2 class="sec">{esc(col)}</h2><div class="collection-row">{cards}</div></section>'
     body = f"""<div class="green-hero" style="padding-bottom:40px"><div class="container">
-<h1>Pots &amp; planters</h1><p style="opacity:.88;max-width:560px;margin-top:12px">Model pages with size and colour options — select a variant, then enquire on WhatsApp with your choice.</p></div></div>{blocks}"""
+<h1>Pots &amp; planters</h1></div></div>{blocks}"""
     return page_shell("Pots & Planters | Indore Nursery", "Designer planters and pot collections with variant pricing.", body, "/pots/")
 
 

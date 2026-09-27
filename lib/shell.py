@@ -1,3 +1,4 @@
+from lib.brand import logo_link
 from lib.config import SITE_NAME, SITE_URL, TEL_URI, WA_PHONE, WA_PHONE_DISPLAY
 from lib.util import esc, wa_link
 from lib.whatsapp import general_message
@@ -31,8 +32,8 @@ HEAD = (
     ANNOUNCE
     + '<header class="site-header"><div class="container hd">'
     '<button class="burger" type="button" aria-label="Open menu" aria-expanded="false">&#9776;</button>'
-    '<a class="logo" href="/">Indore<span>Nursery</span></a>'
-    '<nav class="main" aria-label="Primary">'
+    + logo_link(priority=True)
+    + '<nav class="main" aria-label="Primary">'
     + "".join(f'<a href="{href}">{label}</a>' for label, href in NAV)
     + "</nav>"
     f'<a class="btn-wa hd-wa" href="{general_message()}" target="_blank" rel="noopener">Connect</a>'
@@ -61,10 +62,10 @@ FOOT_LINKS = (
 FOOT = (
     "<footer><div class=\"container foot\">"
     '<div class="fbrand">'
-    '<a class="logo" href="/">Indore<span>Nursery</span></a>'
-    "<p>Plants for homes. Pots for spaces. Greenery for businesses — with expert guidance on WhatsApp.</p>"
-    "</div>"
-    '<div class="fcols">'
+    + logo_link("logo-footer")
+    + "<p>Plants for homes. Pots for spaces. Greenery for businesses.</p>"
+    + "</div>"
+    + '<div class="fcols">'
     "<div><h4>Explore</h4>"
     + "".join(f'<a href="{h}">{esc(l)}</a>' for l, h in FOOT_LINKS)
     + "</div>"
@@ -78,11 +79,7 @@ FOOT = (
     f'<a href="{TEL_URI}">Call us</a>'
     "<span>Indore, Madhya Pradesh</span>"
     "</div></div>"
-    '<div class="client-strip" aria-label="Clients">'
-    "<b>PRIDE Hotels</b><b>&#2360;&#2371;&#2332;&#2344;</b><b>SAJDHAJ</b>"
-    "<b>&#2354;&#2325;&#2381;&#2359;&#2381;&#2350;&#2368; Sweets</b><b>Kashiwal Honda</b>"
-    "</div>"
-    f'<div class="copy">&copy; 2026 {esc(SITE_NAME)} &middot; All rights reserved</div>'
+    + f'<div class="copy">&copy; 2026 {esc(SITE_NAME)} &middot; All rights reserved</div>'
     "</div></footer>"
 )
 
