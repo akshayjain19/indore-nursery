@@ -244,7 +244,11 @@ def home_page():
 <div class="split-head" data-motion="fade-up"><div><span class="eyebrow">Curated plants</span>
 <h2 class="sec sec-display">Curated for greener spaces</h2></div>
 <a class="btn ghost" href="/plants/">Shop all plants</a></div>
-<div class="plant-rail">{curated}</div></div></section>
+<div class="carousel-shell" data-carousel="plants">
+<button type="button" class="carousel-arrow prev" aria-label="Previous plants">&#8249;</button>
+<div class="plant-rail">{curated}</div>
+<button type="button" class="carousel-arrow next" aria-label="Next plants">&#8250;</button>
+</div></div></section>
 
 <section class="green-spaces-editorial" data-motion="fade-up">
 <div class="green-spaces-bg" aria-hidden="true"></div>

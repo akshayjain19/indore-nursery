@@ -49,4 +49,41 @@
       });
     });
   }
+
+  /* Homepage plant carousel — arrow nav, hidden scrollbar */
+  d.querySelectorAll(".carousel-shell[data-carousel]").forEach(function (shell) {
+    var rail = shell.querySelector(".plant-rail, .pot-rail");
+    if (!rail) return;
+    var prev = shell.querySelector(".carousel-arrow.prev");
+    var next = shell.querySelector(".carousel-arrow.next");
+    if (!prev || !next) return;
+
+    function scrollStep() {
+      var card = rail.querySelector(".plant-card-v2, .pot-card-v2");
+      if (!card) return Math.max(200, rail.clientWidth * 0.75);
+      var gap = parseFloat(getComputedStyle(rail).gap) || 18;
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function updateArrows() {
+      var max = rail.scrollWidth - rail.clientWidth;
+      var left = rail.scrollLeft;
+      var eps = 3;
+      prev.disabled = left <= eps;
+      next.disabled = max <= eps || left >= max - eps;
+    }
+
+    prev.addEventListener("click", function () {
+      rail.scrollBy({ left: -scrollStep(), behavior: "smooth" });
+    });
+    next.addEventListener("click", function () {
+      rail.scrollBy({ left: scrollStep(), behavior: "smooth" });
+    });
+    rail.addEventListener("scroll", updateArrows, { passive: true });
+    window.addEventListener("resize", updateArrows);
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(updateArrows).observe(rail);
+    }
+    updateArrows();
+  });
 })();
