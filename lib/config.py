@@ -12,6 +12,15 @@ WA_PHONE_DISPLAY = "+91 83054 49559"
 TEL_URI = f"tel:+{WA_PHONE}"
 
 OWNER_EMAIL = "prakhar@indorenursery.com"
+SITE_EMAIL = "info@indorenursery.com"
+
+NURSERY_ADDRESS_LINE1 = "663/2 Radhakunj Colony,"
+NURSERY_ADDRESS_LINE2 = "LIG Link Road,"
+NURSERY_ADDRESS_CITY = "Indore, Madhya Pradesh 452011"
+NURSERY_MAP_DESTINATION = (
+    "Indore Nursery, 663/2 Radhakunj Colony, LIG Link Road, "
+    "Radha Ganj, Indore, Madhya Pradesh 452011, India"
+)
 
 EXCEL_PATH = "data/excel/indore_nursery_products.xlsx"
 GENERATED_DIR = "data/generated"

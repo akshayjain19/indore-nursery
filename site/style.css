@@ -710,3 +710,23 @@ nav.main{font-size:.68rem;gap:14px}
 .work-portfolio-grid-mobile .work-piece-media{min-height:min(56vw,380px)}
 .work-portfolio-grid-mobile .work-piece-overlay{opacity:1;background:linear-gradient(180deg,rgba(8,18,11,0) 45%,rgba(8,18,11,.78))}
 .work-portfolio-foot .work-cat-inline{margin:0}
+
+/* ===== Polish pass v12 — Visit us + footer logo ===== */
+.logo-footer img{filter:none!important;opacity:1!important;background:transparent}
+.visit-editorial{padding:var(--section-y) 0}
+.visit-layout{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(28px,4vw,48px);align-items:center;width:100%;min-width:0}
+.visit-copy .sec{margin:8px 0 18px}
+.visit-address{font-style:normal;line-height:1.65;color:var(--forest);margin:0 0 22px;font-size:1.02rem}
+.visit-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.visit-actions .btn{margin-left:0}
+.visit-ghost{color:var(--forest)!important;border:1px solid var(--line)!important;background:transparent!important}
+.visit-ghost:hover{background:var(--cream2)!important}
+.visit-map-wrap{width:100%;min-width:0;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--cream2);box-shadow:0 16px 40px rgba(22,48,31,.08)}
+.visit-map{display:block;width:100%;height:clamp(320px,42vw,460px);min-height:320px;border:0}
+.footer-address{font-style:normal;line-height:1.55;margin-top:12px;font-size:.88rem;opacity:.9}
+footer .fcols a{display:block}
+@media(max-width:900px){
+.visit-layout{grid-template-columns:minmax(0,1fr)}
+.visit-map{height:clamp(320px,58vw,360px)}
+.visit-actions .btn-wa,.visit-actions .btn{flex:1 1 auto;text-align:center}
+}

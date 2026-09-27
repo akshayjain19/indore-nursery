@@ -14,6 +14,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 from lib.brand import client_logo_marquee_html
+from lib.location import homepage_visit_section_html
 from lib.config import PLANTS_JSON, POTS_JSON, SITE_URL, WA_PHONE
 from lib.presentation import (
     blog_featured_image,
@@ -277,6 +278,8 @@ def home_page():
 <div class="journal-head"><span class="eyebrow">Journal</span><h2 class="sec sec-display">Notes from the nursery</h2></div>
 <div class="blog-grid blog-grid-home">{blog_html}</div>
 <div class="journal-actions"><a class="btn" href="/blog/">Read the journal</a></div></div></section>
+
+{homepage_visit_section_html()}
 
 <section class="section-breathe"><div class="container"><div class="cta-band reveal" data-motion="fade-up">
 <h2>Let&apos;s make your space greener.</h2>
