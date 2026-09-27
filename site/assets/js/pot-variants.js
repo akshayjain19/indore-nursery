@@ -9,6 +9,8 @@
   }
   var sizesEl = root.querySelector("[data-size-options]");
   var coloursEl = root.querySelector("[data-colour-options]");
+  var sizeField = root.querySelector("[data-size-field]");
+  var colourField = root.querySelector("[data-colour-field]");
   var priceEl = root.querySelector("[data-variant-price]");
   var regEl = root.querySelector("[data-variant-regular]");
   var waEl = root.querySelector("[data-variant-wa]");
@@ -18,12 +20,22 @@
   });
   var sel = { size: null, colour: null };
 
-  function money(n) {
-    if (n == null) return "On Request";
-    return "Rs " + Number(n).toLocaleString("en-IN");
+  function isPlaceholder(v) {
+    return !v || String(v).trim().toLowerCase() === "standard";
   }
 
-  function availableColours(size) {
+  function displayValues(values) {
+    return values.filter(function (v) {
+      return !isPlaceholder(v);
+    });
+  }
+
+  function money(n) {
+    if (n == null) return "On Request";
+    return "₹" + Number(n).toLocaleString("en-IN");
+  }
+
+  function internalColours(size) {
     return variants
       .filter(function (v) {
         return !size || v.size === size;
@@ -36,7 +48,7 @@
       });
   }
 
-  function availableSizes(colour) {
+  function internalSizes(colour) {
     return variants
       .filter(function (v) {
         return !colour || v.colour === colour;
@@ -56,6 +68,7 @@
   }
 
   function renderChips(container, values, key, current) {
+    if (!container) return;
     container.innerHTML = "";
     values.forEach(function (val) {
       var btn = document.createElement("button");
@@ -65,10 +78,10 @@
       btn.addEventListener("click", function () {
         sel[key] = val;
         if (key === "size") {
-          var cols = availableColours(val);
+          var cols = internalColours(val);
           if (cols.indexOf(sel.colour) < 0) sel.colour = cols[0] || null;
         } else {
-          var sizes = availableSizes(val);
+          var sizes = internalSizes(val);
           if (sizes.indexOf(sel.size) < 0) sel.size = sizes[0] || null;
         }
         paint();
@@ -79,8 +92,8 @@
 
   function waMessage() {
     var parts = ["Hi Indore Nursery, I'm interested in " + model];
-    if (sel.size) parts.push("size " + sel.size);
-    if (sel.colour && sel.colour !== "Standard") parts.push(sel.colour);
+    if (sel.size && !isPlaceholder(sel.size)) parts.push("size " + sel.size);
+    if (sel.colour && !isPlaceholder(sel.colour)) parts.push(sel.colour);
     return (
       "https://wa.me/" +
       data.wa_phone +
@@ -90,8 +103,23 @@
   }
 
   function paint() {
-    renderChips(sizesEl, availableSizes(sel.colour), "size", sel.size);
-    renderChips(coloursEl, availableColours(sel.size), "colour", sel.colour);
+    var sizeChoices = displayValues(data.sizes || internalSizes(sel.colour));
+    var colourChoices = displayValues(
+      (data.colours && data.colours.length ? data.colours : internalColours(sel.size))
+    );
+
+    if (sizeField) {
+      sizeField.style.display =
+        data.show_sizes && sizeChoices.length ? "" : "none";
+    }
+    if (colourField) {
+      colourField.style.display =
+        data.show_colours && colourChoices.length ? "" : "none";
+    }
+
+    renderChips(sizesEl, sizeChoices, "size", sel.size);
+    renderChips(coloursEl, colourChoices, "colour", sel.colour);
+
     var v = findVariant();
     if (v) {
       priceEl.textContent = money(v.price);
@@ -99,16 +127,22 @@
         regEl.textContent =
           v.regular_price && v.regular_price > v.price ? money(v.regular_price) : "";
       }
+    } else if (variants.length === 1) {
+      priceEl.textContent = money(variants[0].price);
+      if (regEl) {
+        regEl.textContent =
+          variants[0].regular_price && variants[0].regular_price > variants[0].price
+            ? money(variants[0].regular_price)
+            : "";
+      }
     } else {
-      priceEl.textContent = "Select size & colour";
+      priceEl.textContent = sizeChoices.length || colourChoices.length ? "Select options" : money(data.from_price);
       if (regEl) regEl.textContent = "";
     }
-    if (waEl) {
-      waEl.href = waMessage();
-    }
+    if (waEl) waEl.href = waMessage();
   }
 
-  sel.size = data.sizes[0] || null;
-  sel.colour = data.colours[0] || null;
+  sel.size = (data.sizes && data.sizes[0]) || (variants[0] && variants[0].size) || null;
+  sel.colour = (data.colours && data.colours[0]) || (variants[0] && variants[0].colour) || null;
   paint();
 })();

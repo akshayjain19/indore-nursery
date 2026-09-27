@@ -16,9 +16,12 @@
         }
       });
     },
-    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
   );
-  els.forEach(function (el) {
+  els.forEach(function (el, i) {
+    if (el.classList.contains("pillar") || el.classList.contains("blog-card-home")) {
+      el.classList.add("stagger-" + ((i % 3) + 1));
+    }
     io.observe(el);
   });
   document.querySelectorAll(".reveal").forEach(function (el) {

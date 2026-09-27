@@ -20,11 +20,17 @@ def main():
     run([sys.executable, "scripts/sync_excel.py"])
     run([sys.executable, "build/generator.py"])
     run([sys.executable, "scripts/seo_inventory.py"])
-    # Legacy single-file CSS alias for old bookmarks
-    css_src = os.path.join(ROOT, "site", "assets", "css", "main.css")
+    css_main = os.path.join(ROOT, "site", "assets", "css", "main.css")
+    css_polish = os.path.join(ROOT, "site", "assets", "css", "polish.css")
+    if os.path.isfile(css_main):
+        with open(css_main, encoding="utf-8") as f:
+            css = f.read()
+        if os.path.isfile(css_polish) and "Polish pass v5" not in css:
+            css += "\n" + open(css_polish, encoding="utf-8").read()
+            open(css_main, "w", encoding="utf-8").write(css)
     css_dst = os.path.join(ROOT, "site", "style.css")
-    if os.path.isfile(css_src):
-        with open(css_src, encoding="utf-8") as f:
+    if os.path.isfile(css_main):
+        with open(css_main, encoding="utf-8") as f:
             open(css_dst, "w", encoding="utf-8").write(f.read())
     print("\nBuild complete. Deploy the site/ folder (Cloudflare Pages).")
 
