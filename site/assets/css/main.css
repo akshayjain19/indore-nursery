@@ -658,3 +658,25 @@ nav.main{font-size:.68rem;gap:14px}
 .pots-showcase-grid .pot-card-actions .btn,.pots-showcase-grid .pot-card-actions .btn-wa{flex:1;text-align:center;font-size:.82rem;padding:10px 12px}
 @media(max-width:900px){.pots-showcase-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.pots-showcase-grid{grid-template-columns:minmax(0,1fr)}.pots-showcase-grid .pot-card-actions{flex-direction:column}}
+
+/* ===== Polish pass v9 — client marquee, journal CTA, footer logo (override) ===== */
+.logo-footer img{height:44px;max-width:180px;object-fit:contain;object-position:left center;filter:none!important;opacity:1!important;background:transparent}
+.clients-band{overflow:hidden}
+.client-marquee-wrap{overflow:hidden;padding:32px 0 4px;margin-top:8px;width:100%;max-width:100%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.client-marquee-track{display:flex;width:max-content;align-items:center;gap:0;animation:client-marquee 55s linear infinite;will-change:transform}
+.client-marquee-wrap:hover .client-marquee-track{animation-play-state:paused}
+.client-marquee-set{display:flex;flex-shrink:0;align-items:center;gap:clamp(32px,4vw,56px)}
+.client-logo-cell{flex:0 0 auto;width:150px;height:70px;display:flex;align-items:center;justify-content:center;padding:6px 10px}
+.client-logo-cell img{max-width:120px;max-height:55px;width:auto;height:auto;object-fit:contain;opacity:1!important;filter:none!important}
+@keyframes client-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.journal-head{margin-bottom:34px}
+.journal-actions{display:flex;justify-content:flex-end;margin-top:clamp(24px,3vw,34px)}
+.journal-actions .btn{margin-left:0;background:var(--lime);color:var(--forest)}
+@media(max-width:640px){
+.client-logo-cell{width:120px;height:58px}
+.client-logo-cell img{max-width:96px;max-height:46px}
+.journal-actions{justify-content:flex-start}
+}
+@media(prefers-reduced-motion:reduce){
+.client-marquee-track{animation-duration:120s;animation-play-state:running}
+}

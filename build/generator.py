@@ -264,14 +264,13 @@ def home_page():
 {homepage_work_portfolio_html()}</div></section>
 
 <section class="clients-band"><div class="container center" data-motion="fade-up">
-<span class="eyebrow">Clients</span>
 <h2 class="sec sec-display">Spaces we&apos;ve helped grow</h2>
 {client_logo_marquee_html()}</div></section>
 
 <section class="journal-editorial alt"><div class="container" data-motion="fade-up">
-<div class="split-head"><div><span class="eyebrow">Journal</span><h2 class="sec sec-display">Notes from the nursery</h2></div>
-<a class="btn ghost" href="/blog/">Read the journal</a></div>
-<div class="blog-grid blog-grid-home">{blog_html}</div></div></section>
+<div class="journal-head"><span class="eyebrow">Journal</span><h2 class="sec sec-display">Notes from the nursery</h2></div>
+<div class="blog-grid blog-grid-home">{blog_html}</div>
+<div class="journal-actions"><a class="btn" href="/blog/">Read the journal</a></div></div></section>
 
 <section class="section-breathe"><div class="container"><div class="cta-band reveal" data-motion="fade-up">
 <h2>Let&apos;s make your space greener.</h2>
