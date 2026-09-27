@@ -126,8 +126,7 @@ def home_page():
 <a class="btn-wa" href="{general_message()}" target="_blank" rel="noopener">Connect With Us</a>
 </div></div></section>
 
-<section class="section-breathe"><div class="container" data-motion="fade-up">
-<span class="eyebrow center">Three pillars</span>
+<section class="section-breathe pillar-intro"><div class="container" data-motion="fade-up">
 <h2 class="sec center sec-display">Everything we grow and build</h2>
 <div class="pillar-grid pillar-grid-editorial">{pillar_html}</div></div></section>
 

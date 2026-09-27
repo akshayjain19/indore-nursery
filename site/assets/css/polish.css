@@ -108,3 +108,4 @@ nav.main{font-size:.68rem;gap:14px}
 .split-head{flex-direction:column;align-items:flex-start;gap:14px}
 .split-head>a.btn,.split-head>a.btn-wa{align-self:flex-start}
 }
+.pillar-intro .sec.sec-display.center{margin:0 auto clamp(28px,4vw,42px);max-width:20ch}
