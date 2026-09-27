@@ -336,11 +336,21 @@ def pots_hub():
     for m in ACTIVE_POTS:
         by_col.setdefault(m.get("collection") or "Planters", []).append(m)
     blocks = ""
-    for col, items in sorted(by_col.items()):
+    for idx, (col, items) in enumerate(sorted(by_col.items())):
         cards = "".join(pot_card(m) for m in items)
-        blocks += f'<section class="container" style="padding-top:40px"><span class="eyebrow">{esc(col)}</span><h2 class="sec">{esc(col)}</h2><div class="collection-row">{cards}</div></section>'
-    body = f"""<div class="green-hero" style="padding-bottom:40px"><div class="container">
-<h1>Pots &amp; planters</h1></div></div>{blocks}"""
+        first = " pots-collection--first" if idx == 0 else ""
+        blocks += (
+            f'<section class="container pots-collection{first}">'
+            f'<span class="eyebrow">{esc(col)}</span>'
+            f'<h2 class="sec">{esc(col)}</h2>'
+            f'<div class="collection-row">{cards}</div></section>'
+        )
+    body = f"""<header class="catalog-hero pots-catalog-hero">
+<div class="container">
+<p class="eyebrow">POTS &amp; PLANTERS</p>
+<h1>Pots &amp; Planters</h1>
+<p class="catalog-hero-lede">Planters and pots designed for plants, spaces and every kind of setting.</p>
+</div></header>{blocks}"""
     return page_shell("Pots & Planters | Indore Nursery", "Designer planters and pot collections with variant pricing.", body, "/pots/")
 
 
@@ -517,10 +527,34 @@ def regenerate_events():
             subprocess.run([sys.executable, path], cwd=ROOT, check=False)
 
 
+def dedupe_global_chrome(html: str) -> str:
+    """Ensure a single drawer, WhatsApp float, and back-to-top control per page."""
+
+    def drop_extra(pattern: str, text: str) -> str:
+        matches = list(re.finditer(pattern, text, flags=re.S))
+        if len(matches) <= 1:
+            return text
+        for m in reversed(matches[1:]):
+            text = text[: m.start()] + text[m.end() :]
+        return text
+
+    html = drop_extra(r'<div class="drawer" id="nav-drawer"[^>]*>.*?</div>\s*', html)
+    html = drop_extra(r'<a class="wa-float"[^>]*>.*?</a>\s*', html)
+    html = drop_extra(r'<button id="top"[^>]*>.*?</button>\s*', html)
+    return html
+
+
 def inject_shell_on_events():
     import glob
 
     from lib import shell as ns
+
+    shell_top = (
+        r'<div class="announce"[^>]*>.*?</header>\s*'
+        r'(?:<div class="drawer" id="nav-drawer"[^>]*>.*?</div>\s*)?'
+        r'(?:<a class="wa-float"[^>]*>.*?</a>\s*)?'
+        r'(?:<button id="top"[^>]*>.*?</button>\s*)?'
+    )
 
     for f in glob.glob(os.path.join(SITE, "**", "*.html"), recursive=True):
         if "/assets/" in f:
@@ -528,13 +562,7 @@ def inject_shell_on_events():
         s = open(f, encoding="utf-8").read()
         orig = s
         if "site-header" in s or '<div class="announce"' in s:
-            s = re.sub(
-                r'<div class="announce"[^>]*>.*?</header>',
-                ns.HEAD,
-                s,
-                count=1,
-                flags=re.S,
-            )
+            s = re.sub(shell_top, ns.HEAD, s, count=1, flags=re.S)
         if "<footer>" in s:
             s = re.sub(r"<footer>.*?</footer>", ns.FOOT, s, count=1, flags=re.S)
         if "/assets/css/main.css" not in s:
@@ -548,6 +576,7 @@ def inject_shell_on_events():
             s,
             flags=re.S,
         )
+        s = dedupe_global_chrome(s)
         if s != orig:
             open(f, "w", encoding="utf-8").write(s)
 
