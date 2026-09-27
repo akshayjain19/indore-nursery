@@ -52,6 +52,13 @@ for m in POTS:
 ACTIVE_PLANTS = [p for p in PLANTS if p.get("active")]
 ACTIVE_POTS = [p for p in POTS if p.get("status") != "archived"]
 
+HOME_POT_SHOWCASE_SLUGS = (
+    "milano-high-illuminated-planters",
+    "tokyo-illuminated-round-planters",
+    "venice-planter",
+    "verona-eco",
+)
+
 
 def write(path, content):
     full = os.path.join(SITE, path)
@@ -78,16 +85,36 @@ def plant_card(p, compact=False):
 <a class="btn-wa" href="{plant_message(name)}" target="_blank" rel="noopener">Enquire</a></div></div></article>"""
 
 
-def pot_card(m, featured=False):
+def homepage_featured_pots():
+    by_slug = {m["product_slug"]: m for m in ACTIVE_POTS}
+    picked = []
+    for slug in HOME_POT_SHOWCASE_SLUGS:
+        m = by_slug.get(slug)
+        if m:
+            picked.append(m)
+    if len(picked) < 4:
+        for m in ACTIVE_POTS:
+            if m not in picked:
+                picked.append(m)
+            if len(picked) >= 4:
+                break
+    return picked[:4]
+
+
+def pot_card(m, featured=False, homepage=False):
     name = clean_plant_name(m["model_name"])
     price_line = pot_card_price_line(m)
-    cls = "pot-card pot-card-v2" + (" pot-card-featured" if featured else "")
+    cls = "pot-card pot-card-v2"
+    if homepage:
+        cls += " pot-card-home"
+    elif featured:
+        cls += " pot-card-featured"
     return f"""<article class="{cls}" data-motion="fade-up">
 <a class="pot-card-link" href="/pots/{esc(m['product_slug'])}/">
 <img loading="lazy" src="/{esc(img_url(m.get('image')))}" alt="{esc(name)}">
 <div class="info"><p class="eyebrow">{esc(m.get('collection',''))}</p>
 <h3>{esc(name)}</h3>
-<p class="meta">{price_line}</p></a>
+<p class="meta">{price_line}</p></div></a>
 <div class="pot-card-actions">
 <a class="btn ghost" href="/pots/{esc(m['product_slug'])}/">Explore</a>
 <a class="btn-wa" href="{pot_message(name)}" target="_blank" rel="noopener">WhatsApp</a>
@@ -106,7 +133,7 @@ def home_page():
         f'<span class="link">{cta} →</span></div></a>'
         for num, title, img, href, cta in pillars
     )
-    featured_pots = "".join(pot_card(m, featured=(i == 0)) for i, m in enumerate(ACTIVE_POTS[:5]))
+    featured_pots = "".join(pot_card(m, homepage=True) for m in homepage_featured_pots())
     curated = "".join(plant_card(p) for p in ACTIVE_PLANTS[:12])
     blog3 = homepage_journal_posts(BLOGS, limit=3)
     blog_html = ""
@@ -134,7 +161,7 @@ def home_page():
 <div class="split-head" data-motion="fade-up">
 <div><span class="eyebrow">Pots &amp; planters</span><h2 class="sec sec-display">Collections that define a room</h2></div>
 <a class="btn" href="/pots/">View all pots</a></div>
-<div class="pot-rail">{featured_pots}</div></div></section>
+<div class="pots-showcase-grid">{featured_pots}</div></div></section>
 
 <section class="section-breathe"><div class="container">
 <div class="split-head" data-motion="fade-up"><div><span class="eyebrow">Curated plants</span>

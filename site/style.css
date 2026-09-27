@@ -452,6 +452,19 @@ body{overflow-x:hidden}
 .split-head>a.btn,.split-head>a.btn-wa{align-self:flex-start}
 }
 .pillar-intro .sec.sec-display.center{margin:0 auto clamp(28px,4vw,42px);max-width:20ch}
+
+/* Homepage pots showcase — responsive grid */
+.pots-editorial,.pots-editorial>.container{overflow:visible}
+.pots-showcase-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;width:100%;min-width:0;overflow:visible}
+.pots-showcase-grid .pot-card-v2{width:100%;min-width:0;max-width:100%;height:auto;display:flex;flex-direction:column}
+.pots-showcase-grid .pot-card-v2 .pot-card-link{display:flex;flex-direction:column;flex:1 1 auto;min-width:0;color:inherit;text-decoration:none}
+.pots-showcase-grid .pot-card-v2 img{width:100%;max-width:100%;aspect-ratio:4/5;object-fit:cover}
+.pots-showcase-grid .pot-card-v2 h3{white-space:normal;overflow-wrap:anywhere;line-height:1.35;font-size:1.05rem}
+.pots-showcase-grid .pot-card-v2 .info{padding:16px 18px 10px;flex:0 0 auto;min-width:0}
+.pots-showcase-grid .pot-card-actions{display:flex;gap:10px;padding:0 18px 18px;margin-top:auto;flex-shrink:0}
+.pots-showcase-grid .pot-card-actions .btn,.pots-showcase-grid .pot-card-actions .btn-wa{flex:1;text-align:center;font-size:.82rem;padding:10px 12px}
+@media(max-width:900px){.pots-showcase-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.pots-showcase-grid{grid-template-columns:minmax(0,1fr)}.pots-showcase-grid .pot-card-actions{flex-direction:column}}
 @media(max-width:640px){
 .blog-grid-home{grid-template-columns:1fr}
 .hero-v4{min-height:min(78vh,680px)}
@@ -595,3 +608,16 @@ nav.main{font-size:.68rem;gap:14px}
 .split-head>a.btn,.split-head>a.btn-wa{align-self:flex-start}
 }
 .pillar-intro .sec.sec-display.center{margin:0 auto clamp(28px,4vw,42px);max-width:20ch}
+
+/* Homepage pots showcase — responsive grid */
+.pots-editorial,.pots-editorial>.container{overflow:visible}
+.pots-showcase-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;width:100%;min-width:0;overflow:visible}
+.pots-showcase-grid .pot-card-v2{width:100%;min-width:0;max-width:100%;height:auto;display:flex;flex-direction:column}
+.pots-showcase-grid .pot-card-v2 .pot-card-link{display:flex;flex-direction:column;flex:1 1 auto;min-width:0;color:inherit;text-decoration:none}
+.pots-showcase-grid .pot-card-v2 img{width:100%;max-width:100%;aspect-ratio:4/5;object-fit:cover}
+.pots-showcase-grid .pot-card-v2 h3{white-space:normal;overflow-wrap:anywhere;line-height:1.35;font-size:1.05rem}
+.pots-showcase-grid .pot-card-v2 .info{padding:16px 18px 10px;flex:0 0 auto;min-width:0}
+.pots-showcase-grid .pot-card-actions{display:flex;gap:10px;padding:0 18px 18px;margin-top:auto;flex-shrink:0}
+.pots-showcase-grid .pot-card-actions .btn,.pots-showcase-grid .pot-card-actions .btn-wa{flex:1;text-align:center;font-size:.82rem;padding:10px 12px}
+@media(max-width:900px){.pots-showcase-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.pots-showcase-grid{grid-template-columns:minmax(0,1fr)}.pots-showcase-grid .pot-card-actions{flex-direction:column}}
