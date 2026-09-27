@@ -13,10 +13,12 @@ Premium static site for **Indore Nursery**: curated plants, pots & planters (Exc
 ```
 Edit data/excel/indore_nursery_products.xlsx
         ↓
-python build.py
+python3 build.py    # or: ./build.sh
         ↓
 Deploy site/ (Cloudflare Pages)
 ```
+
+On Linux, if you see `python: command not found`, use **`python3`** (not `python`).
 
 Sheets: **Plants**, **Pots** (one row per sellable variant; grouped by `product_slug` on the site).
 
@@ -39,10 +41,11 @@ Initial workbook: `python scripts/migrate_catalog_to_excel.py`
 ## Build commands
 
 ```bash
-python build.py                 # recommended — sync + generate + SEO inventory
-python scripts/sync_excel.py      # Excel → JSON only
-python build/generator.py         # HTML only (requires synced JSON)
-python scripts/seo_inventory.py # refresh url-inventory + url-migration.json
+python3 build.py                  # recommended — sync + generate + SEO inventory
+./build.sh                        # same (wrapper when `python` is missing)
+python3 scripts/sync_excel.py     # Excel → JSON only
+python3 build/generator.py        # HTML only (requires synced JSON)
+python3 scripts/seo_inventory.py  # refresh url-inventory + url-migration.json
 ```
 
 Legacy: `generate_all.py` + `parts/gen5.py` — superseded by `build.py`; kept for reference.
