@@ -1,0 +1,8 @@
+{
+  "name": "indore-nursery",
+  "private": true,
+  "description": "Static site — output in site/. Vercel uses vercel.json buildCommand.",
+  "scripts": {
+    "build": "bash scripts/vercel-build.sh"
+  }
+}
