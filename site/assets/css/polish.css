@@ -2,26 +2,27 @@
 /* ===== Polish pass v6 — logo, client wall, scroll fixes ===== */
 .logo.logo-img{display:inline-flex;align-items:center;line-height:0;flex-shrink:0}
 .logo.logo-img img{width:auto;height:clamp(40px,4.8vw,54px);max-width:min(210px,48vw);object-fit:contain;object-position:left center}
-.logo-footer img{height:44px;max-width:180px;filter:brightness(0) invert(1);opacity:.95}
+.logo-footer img{height:44px;max-width:180px;object-fit:contain;object-position:left center;filter:none;opacity:1}
 .site-header .hd{align-items:center;gap:16px}
 .site-header .logo.logo-img{margin-right:auto}
 .pot-rail,.plant-rail{overflow-x:auto;overflow-y:hidden;max-height:none;min-height:0;-webkit-overflow-scrolling:touch}
 .pots-editorial,.pots-editorial>.container{overflow:visible}
 .pot-card-v2{max-height:none}
-.client-marquee-wrap{overflow:hidden;padding:32px 0 4px;margin-top:8px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.client-marquee-track{display:flex;gap:56px;width:max-content;align-items:center;animation:client-marquee 42s linear infinite}
+.clients-band{overflow:hidden}
+.client-marquee-wrap{overflow:hidden;padding:32px 0 4px;margin-top:8px;width:100%;max-width:100%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.client-marquee-track{display:flex;width:max-content;align-items:center;animation:client-marquee 55s linear infinite;will-change:transform}
 .client-marquee-wrap:hover .client-marquee-track{animation-play-state:paused}
-.client-logo-cell{flex:0 0 auto;width:132px;height:68px;display:flex;align-items:center;justify-content:center;padding:6px 10px}
-.client-logo-cell img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;opacity:.78;filter:grayscale(1);transition:opacity .25s,filter .25s}
-.client-logo-cell img:hover{opacity:1;filter:none}
-@keyframes client-marquee{to{transform:translateX(-50%)}}
+.client-marquee-set{display:flex;flex-shrink:0;align-items:center;gap:clamp(32px,4vw,56px)}
+.client-logo-cell{flex:0 0 auto;width:150px;height:70px;display:flex;align-items:center;justify-content:center;padding:6px 10px}
+.client-logo-cell img{max-width:120px;max-height:55px;width:auto;height:auto;object-fit:contain;opacity:1;filter:none}
+@keyframes client-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(max-width:640px){
 .logo.logo-img img{height:38px;max-width:160px}
-.client-logo-cell{width:108px;height:56px}
+.client-logo-cell{width:120px;height:58px}
+.client-logo-cell img{max-width:96px;max-height:46px}
 }
 @media (prefers-reduced-motion:reduce){
-.client-marquee-track{animation:none;flex-wrap:wrap;justify-content:center;width:100%;gap:24px}
-.client-marquee-wrap{-webkit-mask-image:none;mask-image:none}
+.client-marquee-track{animation-duration:120s}
 }
 :root{--section-y:clamp(72px,10vw,112px)}
 .section-breathe{padding:var(--section-y) 0}
@@ -61,13 +62,10 @@
 .green-nav a small{grid-column:2;color:rgba(255,255,255,.78);font-size:.85rem}
 .btn-wa-light{display:inline-block}
 .work-editorial{padding:var(--section-y) 0}
-.work-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
-.work-visual img{width:100%;border-radius:24px;aspect-ratio:4/5;object-fit:cover;box-shadow:0 24px 60px rgba(22,48,31,.15)}
-.work-note{font-size:.82rem;color:var(--muted);margin-top:12px;max-width:42ch;line-height:1.5}
-.work-cats{list-style:none;margin:22px 0 26px;padding:0;display:grid;gap:10px}
-.work-cats a{font-weight:600;color:var(--forest);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:8px}
-.work-cats a:hover{color:var(--pine);border-color:var(--lime)}
 .clients-band{padding:var(--section-y) 0;background:var(--cream2)}
+.journal-head{margin-bottom:34px}
+.journal-actions{display:flex;justify-content:flex-end;margin-top:clamp(24px,3vw,34px)}
+.journal-actions .btn{margin-left:0}
 .client-strip-home{border:none;background:transparent;padding:28px 0 0}
 .journal-editorial{padding:var(--section-y) 0}
 .blog-grid-home{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -83,7 +81,6 @@ body{overflow-x:hidden}
 [data-motion="fade-up"].stagger-2{transition-delay:.12s}
 [data-motion="fade-up"].stagger-3{transition-delay:.18s}
 @media(max-width:900px){
-.work-layout{grid-template-columns:1fr}
 .blog-grid-home{grid-template-columns:1fr 1fr}
 .green-nav a{grid-template-columns:1fr;gap:4px}
 .green-nav a span{grid-row:auto}
@@ -107,4 +104,129 @@ nav.main{font-size:.68rem;gap:14px}
 @media(max-width:720px){
 .split-head{flex-direction:column;align-items:flex-start;gap:14px}
 .split-head>a.btn,.split-head>a.btn-wa{align-self:flex-start}
+}
+.pillar-intro .sec.sec-display.center{margin:0 auto clamp(28px,4vw,42px);max-width:20ch}
+
+/* Homepage pots showcase — responsive grid, not horizontal rail */
+.pots-editorial,.pots-editorial>.container{overflow:visible}
+.pots-showcase-grid{
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:22px;
+width:100%;
+min-width:0;
+overflow:visible;
+}
+.pots-showcase-grid .pot-card-v2{
+width:100%;
+min-width:0;
+max-width:100%;
+height:auto;
+display:flex;
+flex-direction:column;
+}
+.pots-showcase-grid .pot-card-v2 .pot-card-link{
+display:flex;
+flex-direction:column;
+flex:1 1 auto;
+min-width:0;
+color:inherit;
+text-decoration:none;
+}
+.pots-showcase-grid .pot-card-v2 img{
+width:100%;
+max-width:100%;
+aspect-ratio:4/5;
+object-fit:cover;
+}
+.pots-showcase-grid .pot-card-v2 h3{
+white-space:normal;
+overflow-wrap:anywhere;
+word-break:normal;
+line-height:1.35;
+font-size:1.05rem;
+}
+.pots-showcase-grid .pot-card-v2 .info{
+padding:16px 18px 10px;
+flex:0 0 auto;
+min-width:0;
+}
+.pots-showcase-grid .pot-card-actions{
+display:flex;
+gap:10px;
+padding:0 18px 18px;
+margin-top:auto;
+flex-shrink:0;
+}
+.pots-showcase-grid .pot-card-actions .btn,
+.pots-showcase-grid .pot-card-actions .btn-wa{
+flex:1;
+text-align:center;
+font-size:.82rem;
+padding:10px 12px;
+}
+@media(max-width:900px){
+.pots-showcase-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:640px){
+.pots-showcase-grid{grid-template-columns:minmax(0,1fr)}
+.pots-showcase-grid .pot-card-actions{flex-direction:column}
+}
+
+/* ===== Polish pass v8 — editorial work portfolio ===== */
+.work-portfolio{display:flex;flex-direction:column;gap:clamp(28px,4vw,40px)}
+.work-portfolio-grid{display:grid;gap:16px;width:100%;min-width:0}
+.work-portfolio-grid-desktop{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);grid-template-rows:1fr 1fr;min-height:clamp(380px,42vw,520px)}
+.work-portfolio-stack{display:grid;grid-template-rows:1fr 1fr;gap:16px;grid-row:1/span 2;grid-column:2}
+.work-piece-feature{grid-row:1/span 2;grid-column:1}
+.work-portfolio-grid-mobile{display:none}
+.work-piece{display:block;color:inherit;text-decoration:none;border-radius:20px;overflow:hidden;min-height:0}
+.work-piece-media{position:relative;height:100%;min-height:180px;background:var(--cream2);overflow:hidden}
+.work-piece-media img{width:100%;height:100%;object-fit:cover;transition:transform .65s cubic-bezier(.22,1,.36,1)}
+.work-piece-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:18px 20px;background:linear-gradient(180deg,rgba(8,18,11,0) 35%,rgba(8,18,11,.72));opacity:0;transition:opacity .35s ease}
+.work-piece-cat{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--lime);font-weight:600;margin-bottom:6px}
+.work-piece-title{font-family:'Fraunces',serif;font-size:1.15rem;color:#fff;line-height:1.2}
+.work-piece:hover .work-piece-media img,.work-piece:focus-visible .work-piece-media img{transform:scale(1.04)}
+.work-piece:hover .work-piece-overlay,.work-piece:focus-visible .work-piece-overlay{opacity:1}
+.work-portfolio-meta{max-width:640px}
+.work-portfolio-meta .sec{margin:8px 0 14px}
+.work-cat-inline{display:flex;flex-wrap:wrap;align-items:center;gap:6px 4px;margin:0 0 22px;font-size:.88rem;line-height:1.6}
+.work-cat-inline a{color:var(--pine);text-decoration:none;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.work-cat-inline a:hover{color:var(--forest);border-color:var(--lime)}
+.work-cat-sep{color:var(--muted);user-select:none}
+.work-explore{display:inline-flex;align-items:center;gap:10px;font-weight:600;color:var(--forest);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:6px;transition:color .25s,border-color .25s,transform .25s}
+.work-explore:hover{color:var(--pine);border-color:var(--lime)}
+.work-explore-arrow{display:inline-block;transition:transform .25s ease}
+.work-explore:hover .work-explore-arrow{transform:translateX(4px)}
+@media(max-width:900px){
+.work-portfolio-grid-desktop{display:none}
+.work-portfolio-grid-mobile{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;min-height:0}
+.work-portfolio-grid-mobile .work-piece-media{min-height:min(62vw,420px)}
+.work-portfolio-grid-mobile .work-piece-overlay{opacity:1}
+}
+@media(prefers-reduced-motion:reduce){
+.work-piece-media img,.work-piece-overlay,.work-explore-arrow{transition:none}
+.work-piece:hover .work-piece-media img{transform:none}
+}
+
+/* ===== Polish pass v9 — client marquee, journal CTA, footer logo (override) ===== */
+.logo-footer img{height:44px;max-width:180px;object-fit:contain;object-position:left center;filter:none!important;opacity:1!important;background:transparent}
+.clients-band{overflow:hidden}
+.client-marquee-wrap{overflow:hidden;padding:32px 0 4px;margin-top:8px;width:100%;max-width:100%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.client-marquee-track{display:flex;width:max-content;align-items:center;gap:0;animation:client-marquee 55s linear infinite;will-change:transform}
+.client-marquee-wrap:hover .client-marquee-track{animation-play-state:paused}
+.client-marquee-set{display:flex;flex-shrink:0;align-items:center;gap:clamp(32px,4vw,56px)}
+.client-logo-cell{flex:0 0 auto;width:150px;height:70px;display:flex;align-items:center;justify-content:center;padding:6px 10px}
+.client-logo-cell img{max-width:120px;max-height:55px;width:auto;height:auto;object-fit:contain;opacity:1!important;filter:none!important}
+@keyframes client-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.journal-head{margin-bottom:34px}
+.journal-actions{display:flex;justify-content:flex-end;margin-top:clamp(24px,3vw,34px)}
+.journal-actions .btn{margin-left:0;background:var(--lime);color:var(--forest)}
+@media(max-width:640px){
+.client-logo-cell{width:120px;height:58px}
+.client-logo-cell img{max-width:96px;max-height:46px}
+.journal-actions{justify-content:flex-start}
+}
+@media(prefers-reduced-motion:reduce){
+.client-marquee-track{animation-duration:120s;animation-play-state:running}
 }

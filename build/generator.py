@@ -52,6 +52,49 @@ for m in POTS:
 ACTIVE_PLANTS = [p for p in PLANTS if p.get("active")]
 ACTIVE_POTS = [p for p in POTS if p.get("status") != "archived"]
 
+HOME_POT_SHOWCASE_SLUGS = (
+    "milano-high-illuminated-planters",
+    "tokyo-illuminated-round-planters",
+    "venice-planter",
+    "verona-eco",
+)
+
+HOME_WORK_PORTFOLIO = (
+    {
+        "src": "images/2025_10_Indore-nursery-3.jpg",
+        "alt": "Large-scale plant installation at a venue in Indore",
+        "category": "Events",
+        "title": "Venue installations",
+        "href": "/events/",
+        "featured": True,
+    },
+    {
+        "src": "images/2025_11_landscape-gardening-1.jpg",
+        "alt": "Landscape planting and garden styling by Indore Nursery",
+        "category": "Landscaping",
+        "title": "Landscape gardens",
+        "href": "/green-spaces/landscaping/",
+        "featured": False,
+    },
+    {
+        "src": "images/2025_10_Indore-nursery-4.jpg",
+        "alt": "Wedding and celebration decor with live greenery",
+        "category": "Weddings",
+        "title": "Celebration decor",
+        "href": "/events/weddings/",
+        "featured": False,
+    },
+)
+
+WORK_CATEGORY_LINKS = (
+    ("Corporate", "/events/corporate/"),
+    ("Landscaping", "/green-spaces/landscaping/"),
+    ("Events", "/events/"),
+    ("Weddings", "/events/weddings/"),
+    ("Hospitality", "/events/corporate/"),
+    ("Commercial", "/events/corporate/"),
+)
+
 
 def write(path, content):
     full = os.path.join(SITE, path)
@@ -78,20 +121,81 @@ def plant_card(p, compact=False):
 <a class="btn-wa" href="{plant_message(name)}" target="_blank" rel="noopener">Enquire</a></div></div></article>"""
 
 
-def pot_card(m, featured=False):
+def homepage_featured_pots():
+    by_slug = {m["product_slug"]: m for m in ACTIVE_POTS}
+    picked = []
+    for slug in HOME_POT_SHOWCASE_SLUGS:
+        m = by_slug.get(slug)
+        if m:
+            picked.append(m)
+    if len(picked) < 4:
+        for m in ACTIVE_POTS:
+            if m not in picked:
+                picked.append(m)
+            if len(picked) >= 4:
+                break
+    return picked[:4]
+
+
+def pot_card(m, featured=False, homepage=False):
     name = clean_plant_name(m["model_name"])
     price_line = pot_card_price_line(m)
-    cls = "pot-card pot-card-v2" + (" pot-card-featured" if featured else "")
+    cls = "pot-card pot-card-v2"
+    if homepage:
+        cls += " pot-card-home"
+    elif featured:
+        cls += " pot-card-featured"
     return f"""<article class="{cls}" data-motion="fade-up">
 <a class="pot-card-link" href="/pots/{esc(m['product_slug'])}/">
 <img loading="lazy" src="/{esc(img_url(m.get('image')))}" alt="{esc(name)}">
 <div class="info"><p class="eyebrow">{esc(m.get('collection',''))}</p>
 <h3>{esc(name)}</h3>
-<p class="meta">{price_line}</p></a>
+<p class="meta">{price_line}</p></div></a>
 <div class="pot-card-actions">
 <a class="btn ghost" href="/pots/{esc(m['product_slug'])}/">Explore</a>
 <a class="btn-wa" href="{pot_message(name)}" target="_blank" rel="noopener">WhatsApp</a>
 </div></article>"""
+
+
+def work_portfolio_piece(piece: dict) -> str:
+    return f"""<a class="work-piece" href="{esc(piece['href'])}">
+<div class="work-piece-media">
+<img loading="lazy" src="/{esc(piece['src'])}" alt="{esc(piece['alt'])}">
+<div class="work-piece-overlay">
+<span class="work-piece-cat">{esc(piece['category'])}</span>
+<span class="work-piece-title">{esc(piece['title'])}</span>
+</div></div></a>"""
+
+
+def homepage_work_portfolio_html() -> str:
+    featured = next(p for p in HOME_WORK_PORTFOLIO if p.get("featured"))
+    stack = [p for p in HOME_WORK_PORTFOLIO if not p.get("featured")]
+    cats = []
+    for i, (label, href) in enumerate(WORK_CATEGORY_LINKS):
+        if i:
+            cats.append('<span class="work-cat-sep" aria-hidden="true">·</span>')
+        cats.append(f'<a href="{esc(href)}">{esc(label)}</a>')
+    cat_line = "".join(cats)
+    stack_html = "".join(work_portfolio_piece(p) for p in stack)
+    mobile_html = "".join(work_portfolio_piece(p) for p in HOME_WORK_PORTFOLIO)
+    return f"""<div class="work-portfolio" data-motion="fade-up">
+<div class="work-portfolio-grid work-portfolio-grid-desktop">
+<a class="work-piece work-piece-feature" href="{esc(featured['href'])}">
+<div class="work-piece-media">
+<img loading="lazy" src="/{esc(featured['src'])}" alt="{esc(featured['alt'])}">
+<div class="work-piece-overlay">
+<span class="work-piece-cat">{esc(featured['category'])}</span>
+<span class="work-piece-title">{esc(featured['title'])}</span>
+</div></div></a>
+<div class="work-portfolio-stack">{stack_html}</div>
+</div>
+<div class="work-portfolio-grid work-portfolio-grid-mobile">{mobile_html}</div>
+<div class="work-portfolio-meta">
+<span class="eyebrow">Our work</span>
+<h2 class="sec sec-display">Spaces we&apos;ve helped grow</h2>
+<p class="work-cat-inline">{cat_line}</p>
+<a class="work-explore" href="/events/"><span>Explore our work</span><span class="work-explore-arrow" aria-hidden="true">→</span></a>
+</div></div>"""
 
 
 def home_page():
@@ -106,7 +210,7 @@ def home_page():
         f'<span class="link">{cta} →</span></div></a>'
         for num, title, img, href, cta in pillars
     )
-    featured_pots = "".join(pot_card(m, featured=(i == 0)) for i, m in enumerate(ACTIVE_POTS[:5]))
+    featured_pots = "".join(pot_card(m, homepage=True) for m in homepage_featured_pots())
     curated = "".join(plant_card(p) for p in ACTIVE_PLANTS[:12])
     blog3 = homepage_journal_posts(BLOGS, limit=3)
     blog_html = ""
@@ -126,8 +230,7 @@ def home_page():
 <a class="btn-wa" href="{general_message()}" target="_blank" rel="noopener">Connect With Us</a>
 </div></div></section>
 
-<section class="section-breathe"><div class="container" data-motion="fade-up">
-<span class="eyebrow center">Three pillars</span>
+<section class="section-breathe pillar-intro"><div class="container" data-motion="fade-up">
 <h2 class="sec center sec-display">Everything we grow and build</h2>
 <div class="pillar-grid pillar-grid-editorial">{pillar_html}</div></div></section>
 
@@ -135,7 +238,7 @@ def home_page():
 <div class="split-head" data-motion="fade-up">
 <div><span class="eyebrow">Pots &amp; planters</span><h2 class="sec sec-display">Collections that define a room</h2></div>
 <a class="btn" href="/pots/">View all pots</a></div>
-<div class="pot-rail">{featured_pots}</div></div></section>
+<div class="pots-showcase-grid">{featured_pots}</div></div></section>
 
 <section class="section-breathe"><div class="container">
 <div class="split-head" data-motion="fade-up"><div><span class="eyebrow">Curated plants</span>
@@ -158,32 +261,16 @@ def home_page():
 </div></section>
 
 <section class="work-editorial alt"><div class="container">
-<div class="work-layout" data-motion="fade-up">
-<div class="work-visual">
-<img loading="lazy" src="/images/2022_05_013A1506.jpg" alt="Green space installation by Indore Nursery">
-</div>
-<div class="work-copy">
-<span class="eyebrow">Our work</span>
-<h2 class="sec sec-display">Spaces we help grow</h2>
-<ul class="work-cats">
-<li><a href="/events/corporate/">Corporate</a></li>
-<li><a href="/green-spaces/landscaping/">Landscaping</a></li>
-<li><a href="/events/">Events</a></li>
-<li><a href="/events/weddings/">Weddings</a></li>
-<li><a href="/events/corporate/">Hospitality</a></li>
-<li><a href="/events/corporate/">Commercial</a></li>
-</ul>
-<a class="btn" href="/events/">Explore our work</a>
-</div></div></div></section>
+{homepage_work_portfolio_html()}</div></section>
 
 <section class="clients-band"><div class="container center" data-motion="fade-up">
 <h2 class="sec sec-display">Spaces we&apos;ve helped grow</h2>
 {client_logo_marquee_html()}</div></section>
 
 <section class="journal-editorial alt"><div class="container" data-motion="fade-up">
-<div class="split-head"><div><span class="eyebrow">Journal</span><h2 class="sec sec-display">Notes from the nursery</h2></div>
-<a class="btn ghost" href="/blog/">Read the journal</a></div>
-<div class="blog-grid blog-grid-home">{blog_html}</div></div></section>
+<div class="journal-head"><span class="eyebrow">Journal</span><h2 class="sec sec-display">Notes from the nursery</h2></div>
+<div class="blog-grid blog-grid-home">{blog_html}</div>
+<div class="journal-actions"><a class="btn" href="/blog/">Read the journal</a></div></div></section>
 
 <section class="section-breathe"><div class="container"><div class="cta-band reveal" data-motion="fade-up">
 <h2>Let&apos;s make your space greener.</h2>
