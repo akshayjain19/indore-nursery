@@ -1,0 +1,68 @@
+
+/* ===== Redesign v4 — pillars, filters, pot variants, green spaces ===== */
+.hero-v4{min-height:min(92vh,820px);display:flex;align-items:flex-end;color:#fff;background:linear-gradient(105deg,rgba(8,20,11,.88) 0%,rgba(8,20,11,.35) 55%,rgba(8,20,11,.15)),url('/img/home/hero.jpg') center 42%/cover}
+.hero-v4 .inner{width:100%;max-width:1180px;margin:0 auto;padding:clamp(80px,12vw,140px) 22px 72px}
+.hero-v4 h1{font-size:clamp(2.4rem,6vw,4.5rem);line-height:1.05;margin:14px 0 18px;max-width:11ch}
+.hero-v4 .lead{font-size:clamp(1rem,2vw,1.2rem);max-width:520px;opacity:.92;margin-bottom:28px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+.pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pillar{position:relative;border-radius:22px;overflow:hidden;min-height:360px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;text-decoration:none;box-shadow:0 18px 50px rgba(22,48,31,.18);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.pillar:hover{transform:translateY(-6px)}
+.pillar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+.pillar:hover img{transform:scale(1.06)}
+.pillar .veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,18,11,.92) 0%,rgba(8,18,11,.25) 55%,transparent)}
+.pillar .content{position:relative;padding:26px 24px 28px;z-index:1}
+.pillar .num{font-size:.72rem;letter-spacing:.22em;color:var(--lime);font-weight:600}
+.pillar h3{font-family:'Fraunces',serif;font-size:1.65rem;margin:8px 0 10px}
+.pillar p{font-size:.92rem;opacity:.88;max-width:28ch;margin-bottom:14px}
+.pillar .link{font-size:.82rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--lime)}
+.collection-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.collection-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:10px;transition:.3s}
+.collection-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(22,48,31,.12)}
+.collection-card h3{font-family:'Fraunces',serif;color:var(--forest);font-size:1.25rem}
+.collection-card .meta{font-size:.85rem;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px}
+.filters button,.filters a.filter-chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;font-size:.82rem;font-weight:600;color:var(--forest);cursor:pointer;transition:.2s;text-decoration:none}
+.filters .on,.filters button:hover,.filters a.filter-chip:hover{background:var(--forest);color:#fff;border-color:var(--forest)}
+.plant-card-v2{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:.35s}
+.plant-card-v2:hover{transform:translateY(-5px);box-shadow:0 14px 36px rgba(22,48,31,.14)}
+.plant-card-v2 .pic{overflow:hidden;aspect-ratio:4/5;max-height:280px}
+.plant-card-v2 img{width:100%;height:100%;object-fit:cover;transition:transform .55s ease}
+.plant-card-v2:hover img{transform:scale(1.05)}
+.plant-card-v2 .info{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.plant-card-v2 h3{font-size:1rem;color:var(--forest);line-height:1.35}
+.plant-card-v2 .desc{font-size:.86rem;color:var(--muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.plant-card-v2 .foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.pot-card{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:.3s;display:flex;flex-direction:column}
+.pot-card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(22,48,31,.12)}
+.pot-card img{width:100%;aspect-ratio:5/4;object-fit:cover}
+.pot-card .info{padding:18px 20px 20px}
+.variant-picker{margin-top:22px;display:grid;gap:18px}
+.variant-picker fieldset{border:0;padding:0;margin:0}
+.variant-picker legend{font-weight:600;color:var(--forest);margin-bottom:10px;font-size:.9rem}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 16px;font-size:.85rem;cursor:pointer;transition:.2s}
+.chip.on{background:var(--forest);color:#fff;border-color:var(--forest)}
+.chip[disabled]{opacity:.35;cursor:not-allowed}
+.variant-price{font-family:'Fraunces',serif;font-size:1.8rem;color:var(--pine);margin:8px 0 4px}
+.green-hero{padding:90px 0 60px;background:linear-gradient(120deg,var(--forest),#0a1810);color:#fff}
+.green-hero h1{font-size:clamp(2rem,4vw,3.2rem);max-width:14ch;line-height:1.08}
+.green-paths{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:36px}
+.green-path{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:22px;transition:.25s}
+.green-path:hover{background:rgba(255,255,255,.1);transform:translateY(-3px)}
+.green-path h3{font-family:'Fraunces',serif;color:var(--lime);margin-bottom:8px}
+.reviews-placeholder{border:1px dashed var(--line);border-radius:18px;padding:40px 24px;text-align:center;color:var(--muted);background:#fff}
+.foot{display:grid;gap:28px}
+.fcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px}
+.fcols a{display:block;padding:4px 0;font-size:.9rem;opacity:.85}
+.fcols h4{color:#fff;margin-bottom:10px}
+.client-strip{display:flex;flex-wrap:wrap;gap:24px;justify-content:center;padding:22px 0;border-top:1px solid rgba(255,255,255,.12)}
+.client-strip b{font-family:'Fraunces',serif;opacity:.75;font-size:.95rem}
+.cta-band{background:var(--forest);color:#fff;border-radius:24px;padding:clamp(36px,6vw,56px) clamp(24px,5vw,48px);text-align:center;margin:20px 0}
+.cta-band h2{font-family:'Fraunces',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);margin-bottom:12px}
+.cta-band .hero-actions{justify-content:center;margin-top:22px}
+[data-motion="fade-up"]{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+[data-motion="fade-up"].in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}[data-motion="fade-up"]{opacity:1;transform:none}}
+@media(max-width:900px){.pillar-grid{grid-template-columns:1fr}.pillar{min-height:300px}}
+@media(max-width:640px){.hero-v4{align-items:flex-end}.hero-v4 h1{max-width:none}}

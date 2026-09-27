@@ -1,0 +1,359 @@
+[
+  {
+    "legacy_url": "/plants/milano-high-illuminated-planters/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/milano-high-illuminated-planters/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/tokyo-illuminated-round-planters/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/tokyo-illuminated-round-planters/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/venice-planter/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/venice-planter/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/paris-planters/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/paris-planters/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/window-planter/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/window-planter/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/snorlax-round-planter/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/snorlax-round-planter/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/ringstone-ring-planter/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/ringstone-ring-planter/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/ceira-planter/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/ceira-planter/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/globus-planter/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/globus-planter/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/grower-planter-28/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/grower-planter/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/bello-hanging-planter/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/bello-hanging-planter/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/valencia-planters/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/valencia-planters/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/valencia-40-wheels/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/valencia-planters/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/valencia-30-wheels/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/valencia-planters/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/valencia-25/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/valencia-planters/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/valencia-20/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/valencia-planters/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/valencia-16/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/valencia-planters/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/valencia-14/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/valencia-planters/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/valencia-11/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/valencia-planters/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/tunis-indoor-outdoor-planter/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/tunis-indoor-outdoor-planter/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/rome-eco-planter/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/rome-eco-planter/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/venice-planters/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/venice-planters/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/malta-planters/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/malta-planters/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/tokyo-high-planters/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/tokyo-high-planters/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/tokyo-dual-tone/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/tokyo-dual-tone/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/quebec-rectangle-planters/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/quebec-rectangle-planters/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/cubo-planter/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/cubo-planter/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/milano-short-stone-finish-planter/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/milano-short-stone-finish-planter/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/arty-rectangle/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/arty-rectangle/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/bello-hook-pot/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/bello-hook-pot/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/bello-square-20-colour/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/bello-square-20/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/arty-round-15/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/arty-round/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/arty-round-10/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/arty-round/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/snake-plant-with-florida-pot/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/snake-plant-with-florida-pot/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/florida-40/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/florida/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/buddha-statue/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/buddha-statue/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/capri/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/capri/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/verona-33/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/verona-eco/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/verona-22/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/verona-eco/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/verona-17/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/verona-eco/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/verona-15/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/verona-eco/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/verona-14/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/verona-eco/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/plants/verona-11/",
+    "current_status": "indexed_product",
+    "new_url": "/pots/verona-eco/",
+    "action": "REDIRECT",
+    "reason": "Pot model pages moved under /pots/"
+  },
+  {
+    "legacy_url": "/",
+    "current_status": "primary",
+    "new_url": "/",
+    "action": "KEEP",
+    "reason": "Homepage"
+  },
+  {
+    "legacy_url": "/plants/",
+    "current_status": "primary",
+    "new_url": "/plants/",
+    "action": "KEEP",
+    "reason": "Plants shop hub"
+  },
+  {
+    "legacy_url": "/pots/",
+    "current_status": "primary",
+    "new_url": "/pots/",
+    "action": "KEEP",
+    "reason": "Pots shop hub"
+  },
+  {
+    "legacy_url": "/green-spaces/",
+    "current_status": "primary",
+    "new_url": "/green-spaces/",
+    "action": "KEEP",
+    "reason": "Services hub"
+  },
+  {
+    "legacy_url": "/blog/",
+    "current_status": "primary",
+    "new_url": "/blog/",
+    "action": "KEEP",
+    "reason": "Journal / SEO content"
+  },
+  {
+    "legacy_url": "/events/",
+    "current_status": "primary",
+    "new_url": "/events/",
+    "action": "KEEP",
+    "reason": "Events & decor"
+  },
+  {
+    "legacy_url": "/category/",
+    "current_status": "primary",
+    "new_url": "/category/",
+    "action": "KEEP",
+    "reason": "Legacy category archives"
+  },
+  {
+    "legacy_url": "/season/",
+    "current_status": "primary",
+    "new_url": "/season/",
+    "action": "KEEP",
+    "reason": "Seasonal landing pages"
+  }
+]
