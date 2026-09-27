@@ -59,6 +59,15 @@ Legacy: `generate_all.py` + `parts/gen5.py` — superseded by `build.py`; kept f
 
 ## Deploy
 
+### Vercel (recommended)
+
+1. Import repo on [vercel.com/new](https://vercel.com/new), production branch **`main`**.
+2. **Framework preset:** Other (not Next.js).
+3. **Root directory:** `.` (repo root).
+4. **Output directory:** `site` (also set in `vercel.json`).
+5. **Build command:** `bash scripts/vercel-build.sh` (uses committed `site/`; runs Python build only if missing).
+6. Redeploy after push if the site shows Vercel `NOT_FOUND` — usually a failed build or wrong output directory.
+
 Upload **`site/`** to Cloudflare Pages (static assets). Ensure `_redirects` is included.
 
 Local preview:
