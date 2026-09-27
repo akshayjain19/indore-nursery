@@ -59,6 +59,42 @@ HOME_POT_SHOWCASE_SLUGS = (
     "verona-eco",
 )
 
+HOME_WORK_PORTFOLIO = (
+    {
+        "src": "images/2025_10_Indore-nursery-3.jpg",
+        "alt": "Large-scale plant installation at a venue in Indore",
+        "category": "Events",
+        "title": "Venue installations",
+        "href": "/events/",
+        "featured": True,
+    },
+    {
+        "src": "images/2025_11_landscape-gardening-1.jpg",
+        "alt": "Landscape planting and garden styling by Indore Nursery",
+        "category": "Landscaping",
+        "title": "Landscape gardens",
+        "href": "/green-spaces/landscaping/",
+        "featured": False,
+    },
+    {
+        "src": "images/2025_10_Indore-nursery-4.jpg",
+        "alt": "Wedding and celebration decor with live greenery",
+        "category": "Weddings",
+        "title": "Celebration decor",
+        "href": "/events/weddings/",
+        "featured": False,
+    },
+)
+
+WORK_CATEGORY_LINKS = (
+    ("Corporate", "/events/corporate/"),
+    ("Landscaping", "/green-spaces/landscaping/"),
+    ("Events", "/events/"),
+    ("Weddings", "/events/weddings/"),
+    ("Hospitality", "/events/corporate/"),
+    ("Commercial", "/events/corporate/"),
+)
+
 
 def write(path, content):
     full = os.path.join(SITE, path)
@@ -119,6 +155,47 @@ def pot_card(m, featured=False, homepage=False):
 <a class="btn ghost" href="/pots/{esc(m['product_slug'])}/">Explore</a>
 <a class="btn-wa" href="{pot_message(name)}" target="_blank" rel="noopener">WhatsApp</a>
 </div></article>"""
+
+
+def work_portfolio_piece(piece: dict) -> str:
+    return f"""<a class="work-piece" href="{esc(piece['href'])}">
+<div class="work-piece-media">
+<img loading="lazy" src="/{esc(piece['src'])}" alt="{esc(piece['alt'])}">
+<div class="work-piece-overlay">
+<span class="work-piece-cat">{esc(piece['category'])}</span>
+<span class="work-piece-title">{esc(piece['title'])}</span>
+</div></div></a>"""
+
+
+def homepage_work_portfolio_html() -> str:
+    featured = next(p for p in HOME_WORK_PORTFOLIO if p.get("featured"))
+    stack = [p for p in HOME_WORK_PORTFOLIO if not p.get("featured")]
+    cats = []
+    for i, (label, href) in enumerate(WORK_CATEGORY_LINKS):
+        if i:
+            cats.append('<span class="work-cat-sep" aria-hidden="true">·</span>')
+        cats.append(f'<a href="{esc(href)}">{esc(label)}</a>')
+    cat_line = "".join(cats)
+    stack_html = "".join(work_portfolio_piece(p) for p in stack)
+    mobile_html = "".join(work_portfolio_piece(p) for p in HOME_WORK_PORTFOLIO)
+    return f"""<div class="work-portfolio" data-motion="fade-up">
+<div class="work-portfolio-grid work-portfolio-grid-desktop">
+<a class="work-piece work-piece-feature" href="{esc(featured['href'])}">
+<div class="work-piece-media">
+<img loading="lazy" src="/{esc(featured['src'])}" alt="{esc(featured['alt'])}">
+<div class="work-piece-overlay">
+<span class="work-piece-cat">{esc(featured['category'])}</span>
+<span class="work-piece-title">{esc(featured['title'])}</span>
+</div></div></a>
+<div class="work-portfolio-stack">{stack_html}</div>
+</div>
+<div class="work-portfolio-grid work-portfolio-grid-mobile">{mobile_html}</div>
+<div class="work-portfolio-meta">
+<span class="eyebrow">Our work</span>
+<h2 class="sec sec-display">Spaces we&apos;ve helped grow</h2>
+<p class="work-cat-inline">{cat_line}</p>
+<a class="work-explore" href="/events/"><span>Explore our work</span><span class="work-explore-arrow" aria-hidden="true">→</span></a>
+</div></div>"""
 
 
 def home_page():
@@ -184,25 +261,10 @@ def home_page():
 </div></section>
 
 <section class="work-editorial alt"><div class="container">
-<div class="work-layout" data-motion="fade-up">
-<div class="work-visual">
-<img loading="lazy" src="/images/2022_05_013A1506.jpg" alt="Green space installation by Indore Nursery">
-</div>
-<div class="work-copy">
-<span class="eyebrow">Our work</span>
-<h2 class="sec sec-display">Spaces we help grow</h2>
-<ul class="work-cats">
-<li><a href="/events/corporate/">Corporate</a></li>
-<li><a href="/green-spaces/landscaping/">Landscaping</a></li>
-<li><a href="/events/">Events</a></li>
-<li><a href="/events/weddings/">Weddings</a></li>
-<li><a href="/events/corporate/">Hospitality</a></li>
-<li><a href="/events/corporate/">Commercial</a></li>
-</ul>
-<a class="btn" href="/events/">Explore our work</a>
-</div></div></div></section>
+{homepage_work_portfolio_html()}</div></section>
 
 <section class="clients-band"><div class="container center" data-motion="fade-up">
+<span class="eyebrow">Clients</span>
 <h2 class="sec sec-display">Spaces we&apos;ve helped grow</h2>
 {client_logo_marquee_html()}</div></section>
 
