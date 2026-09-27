@@ -26,7 +26,7 @@ def main():
         with open(css_main, encoding="utf-8") as f:
             css = f.read()
         if os.path.isfile(css_polish):
-            marker = "Polish pass v6"
+            marker = "Polish pass v7"
             if marker not in css:
                 css += "\n" + open(css_polish, encoding="utf-8").read()
                 open(css_main, "w", encoding="utf-8").write(css)
