@@ -284,7 +284,7 @@ def service_page(title, h1, lede, bullets, canonical):
 
 def green_hub():
     body = f"""<div class="green-hero"><div class="container">
-<h1>Green space solutions</h1><p style="opacity:.88;max-width:620px;margin-top:12px">Enquiry-led services for offices, commercial spaces, landscapes and events.</p>
+<h1>Green space solutions</h1>
 <div class="green-paths">
 <a class="green-path" href="/green-spaces/corporate-plant-rental/"><h3>Corporate plant rental</h3><p>Install, maintain and refresh planted workspaces.</p></a>
 <a class="green-path" href="/green-spaces/maintenance/"><h3>Plant maintenance</h3><p>Ongoing care for installed greens.</p></a>
@@ -430,15 +430,28 @@ def inject_shell_on_events():
         if "/assets/" in f:
             continue
         s = open(f, encoding="utf-8").read()
-        if "site-header" in s:
-            continue
         orig = s
-        s = re.sub(r"<div class=\"announce\">.*?</header>", ns.HEAD, s, flags=re.S)
-        s = re.sub(r"<footer>.*?</footer>", ns.FOOT, s, flags=re.S)
+        if "site-header" in s or '<div class="announce"' in s:
+            s = re.sub(
+                r'<div class="announce"[^>]*>.*?</header>',
+                ns.HEAD,
+                s,
+                count=1,
+                flags=re.S,
+            )
+        if "<footer>" in s:
+            s = re.sub(r"<footer>.*?</footer>", ns.FOOT, s, count=1, flags=re.S)
         if "/assets/css/main.css" not in s:
             s = s.replace("/style.css", "/assets/css/main.css")
         if "/assets/js/core.js" not in s and "</body>" in s:
             s = s.replace("</body>", ns.SCRIPTS + "</body>")
+        # Drop legacy duplicate float from old catalog templates.
+        s = re.sub(
+            r'<a class="wa-float" href="https://wa\.me/918305449559\?text=Hi%20Indore%20Nursery!"[^>]*>.*?</a>\s*',
+            "",
+            s,
+            flags=re.S,
+        )
         if s != orig:
             open(f, "w", encoding="utf-8").write(s)
 
