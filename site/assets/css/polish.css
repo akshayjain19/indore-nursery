@@ -1,5 +1,28 @@
 
-/* ===== Polish pass v5 — editorial layout, mobile, typography ===== */
+/* ===== Polish pass v6 — logo, client wall, scroll fixes ===== */
+.logo.logo-img{display:inline-flex;align-items:center;line-height:0;flex-shrink:0}
+.logo.logo-img img{width:auto;height:clamp(40px,4.8vw,54px);max-width:min(210px,48vw);object-fit:contain;object-position:left center}
+.logo-footer img{height:44px;max-width:180px;filter:brightness(0) invert(1);opacity:.95}
+.site-header .hd{align-items:center;gap:16px}
+.site-header .logo.logo-img{margin-right:auto}
+.pot-rail,.plant-rail{overflow-x:auto;overflow-y:hidden;max-height:none;min-height:0;-webkit-overflow-scrolling:touch}
+.pots-editorial,.pots-editorial>.container{overflow:visible}
+.pot-card-v2{max-height:none}
+.client-marquee-wrap{overflow:hidden;padding:32px 0 4px;margin-top:8px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.client-marquee-track{display:flex;gap:56px;width:max-content;align-items:center;animation:client-marquee 42s linear infinite}
+.client-marquee-wrap:hover .client-marquee-track{animation-play-state:paused}
+.client-logo-cell{flex:0 0 auto;width:132px;height:68px;display:flex;align-items:center;justify-content:center;padding:6px 10px}
+.client-logo-cell img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;opacity:.78;filter:grayscale(1);transition:opacity .25s,filter .25s}
+.client-logo-cell img:hover{opacity:1;filter:none}
+@keyframes client-marquee{to{transform:translateX(-50%)}}
+@media(max-width:640px){
+.logo.logo-img img{height:38px;max-width:160px}
+.client-logo-cell{width:108px;height:56px}
+}
+@media (prefers-reduced-motion:reduce){
+.client-marquee-track{animation:none;flex-wrap:wrap;justify-content:center;width:100%;gap:24px}
+.client-marquee-wrap{-webkit-mask-image:none;mask-image:none}
+}
 :root{--section-y:clamp(72px,10vw,112px)}
 .section-breathe{padding:var(--section-y) 0}
 .sec-display{font-size:clamp(2rem,4.2vw,3rem);line-height:1.08;letter-spacing:-.02em}
@@ -10,7 +33,7 @@
 .pillar-grid-editorial{gap:24px}
 .pillar-grid-editorial .pillar{min-height:420px}
 .pots-editorial{padding:var(--section-y) 0}
-.pot-rail{display:flex;gap:20px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.pot-rail{display:flex;gap:20px;overflow-x:auto;overflow-y:hidden;padding-bottom:12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
 .pot-rail .pot-card-v2{flex:0 0 min(320px,82vw);scroll-snap-align:start}
 .pot-card-v2{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
 .pot-card-v2 .pot-card-link{display:block;color:inherit;text-decoration:none}
@@ -22,7 +45,7 @@
 .pot-card-actions{display:flex;gap:10px;padding:0 20px 20px;margin-top:auto}
 .pot-card-actions .btn,.pot-card-actions .btn-wa{flex:1;text-align:center;font-size:.82rem;padding:10px 14px}
 .pot-card-featured .pot-card-link img{aspect-ratio:16/11}
-.plant-rail{display:flex;gap:18px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory}
+.plant-rail{display:flex;gap:18px;overflow-x:auto;overflow-y:hidden;padding-bottom:12px;scroll-snap-type:x mandatory}
 .plant-rail .plant-card-v2{flex:0 0 min(260px,78vw);scroll-snap-align:start}
 .green-spaces-editorial{position:relative;padding:clamp(90px,14vw,140px) 0;color:#fff;overflow:hidden}
 .green-spaces-bg{position:absolute;inset:0;background:linear-gradient(100deg,rgba(8,18,11,.92),rgba(8,18,11,.55)),url('/images/2022_05_013A1506.jpg') center/cover;transform:scale(1.02)}
@@ -71,4 +94,17 @@ body{overflow-x:hidden}
 .hero-v4 .inner{padding-bottom:56px}
 .pot-card-actions{flex-direction:column}
 nav.main{font-size:.68rem;gap:14px}
+}
+
+/* ===== Polish pass v7 — horizontal rails (no nested vertical scroll) ===== */
+.cats,.rail,.story-rail,.pot-rail,.plant-rail{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;max-height:none;min-height:0}
+.pot-rail,.plant-rail{align-items:stretch}
+.plant-rail .plant-card-v2,.pot-rail .pot-card-v2{flex-shrink:0;max-height:none;height:auto}
+.plant-rail .plant-card-v2 .pic{max-height:none}
+.split-head>div:first-child{flex:1 1 auto;min-width:0}
+.split-head>a.btn,.split-head>a.btn-wa,.split-head>.btn{flex:0 0 auto;align-self:flex-end;white-space:nowrap}
+.section-breathe .container{overflow:visible}
+@media(max-width:720px){
+.split-head{flex-direction:column;align-items:flex-start;gap:14px}
+.split-head>a.btn,.split-head>a.btn-wa{align-self:flex-start}
 }
