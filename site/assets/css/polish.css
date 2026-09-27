@@ -280,3 +280,47 @@ footer .fcols a{display:block}
 .visit-map{height:clamp(320px,58vw,360px)}
 .visit-actions .btn-wa,.visit-actions .btn{flex:1 1 auto;text-align:center}
 }
+
+/* ===== Polish pass v13 — compact Our Work portfolio height ===== */
+.work-editorial.alt{padding:clamp(22px,3vw,28px) 0}
+.work-portfolio{gap:clamp(10px,1.5vw,16px)}
+.work-portfolio-intro .eyebrow{margin-bottom:4px}
+.work-portfolio-intro .sec{margin:4px 0 0;line-height:1.06}
+.work-portfolio-grid-desktop{
+height:clamp(300px,32vw,380px);
+max-height:400px;
+min-height:0;
+grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);
+gap:12px;
+}
+.work-portfolio-stack{gap:12px}
+.work-piece-media{min-height:0;height:100%}
+.work-piece-feature .work-piece-media img{object-position:center 40%}
+.work-portfolio-stack .work-piece:first-child .work-piece-media img{object-position:center 45%}
+.work-portfolio-stack .work-piece:last-child .work-piece-media img{object-position:center 35%}
+.work-portfolio-foot{
+margin-top:0;
+gap:10px 16px;
+flex-direction:row;
+flex-wrap:wrap;
+align-items:center;
+justify-content:space-between;
+max-width:100%;
+}
+.work-portfolio-foot .work-cat-inline{margin:0;flex:1 1 240px;font-size:.84rem}
+.work-portfolio-foot .btn{flex:0 0 auto;padding:10px 22px;font-size:.9rem}
+@media(min-width:1280px){
+.work-portfolio-grid-desktop{height:400px;max-height:420px}
+}
+@media(max-width:900px){
+.work-editorial.alt{padding:32px 0 28px}
+.work-portfolio{gap:10px}
+.work-portfolio-foot{flex-direction:column;align-items:flex-start;gap:12px}
+.work-portfolio-grid-mobile{gap:10px}
+.work-portfolio-grid-mobile .work-piece-media{min-height:0;height:auto}
+.work-portfolio-grid-mobile .work-piece:nth-child(1) .work-piece-media{height:clamp(240px,72vw,300px)}
+.work-portfolio-grid-mobile .work-piece:nth-child(2) .work-piece-media,
+.work-portfolio-grid-mobile .work-piece:nth-child(3) .work-piece-media{height:clamp(168px,48vw,208px)}
+.work-portfolio-grid-mobile .work-piece-overlay{padding:14px 16px}
+.work-portfolio-grid-mobile .work-piece-title{font-size:1.02rem}
+}
