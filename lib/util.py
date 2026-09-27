@@ -21,7 +21,7 @@ def money(n):
     if n is None or n == "":
         return "On Request"
     try:
-        return "Rs " + format(int(float(n)), ",d")
+        return "₹" + format(int(float(n)), ",d")
     except (TypeError, ValueError):
         return "On Request"
 

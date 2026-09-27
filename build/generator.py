@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import html as html_lib
 import os
 import re
 import shutil
@@ -13,6 +14,14 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 from lib.config import PLANTS_JSON, POTS_JSON, SITE_URL, WA_PHONE
+from lib.presentation import (
+    blog_featured_image,
+    clean_plant_name,
+    homepage_journal_posts,
+    plant_teaser,
+    pot_card_price_line,
+    pot_variant_payload,
+)
 from lib.shell import page_shell
 from lib.util import esc, img_url, money, strip_html, wa_link
 from lib.whatsapp import (
@@ -57,25 +66,31 @@ def slugify(s):
 
 
 def plant_card(p, compact=False):
-    desc = strip_html(p.get("short_description") or "")[:140]
+    name = clean_plant_name(p["name"])
+    desc = plant_teaser(p)
     tags = ",".join(p.get("tags") or [])
-    return f"""<article class="plant-card-v2" data-tags="{esc(tags)}">
-<a href="/plants/{esc(p['slug'])}/" class="pic"><img loading="lazy" src="/{esc(img_url(p.get('image')))}" alt="{esc(p['name'])}"></a>
-<div class="info"><h3><a href="/plants/{esc(p['slug'])}/">{esc(p['name'])}</a></h3>
+    return f"""<article class="plant-card-v2" data-tags="{esc(tags)}" data-motion="fade-up">
+<a href="/plants/{esc(p['slug'])}/" class="pic"><img loading="lazy" src="/{esc(img_url(p.get('image')))}" alt="{esc(name)}"></a>
+<div class="info"><h3><a href="/plants/{esc(p['slug'])}/">{esc(name)}</a></h3>
 <p class="desc">{esc(desc)}</p>
 <div class="foot"><p><span class="price">{money(p.get('price'))}</span>{(' <span class="old">'+money(p.get('regular_price'))+'</span>') if p.get('regular_price') and p.get('price') and p['regular_price']>p['price'] else ''}</p>
-<a class="btn-wa" href="{plant_message(p['name'])}" target="_blank" rel="noopener">Enquire</a></div></div></article>"""
+<a class="btn-wa" href="{plant_message(name)}" target="_blank" rel="noopener">Enquire</a></div></div></article>"""
 
 
-def pot_card(m):
-    fp = money(m.get("from_price"))
-    sizes = ", ".join(m.get("sizes") or [])[:60]
-    return f"""<a class="pot-card" href="/pots/{esc(m['product_slug'])}/">
-<img loading="lazy" src="/{esc(img_url(m.get('image')))}" alt="{esc(m['model_name'])}">
+def pot_card(m, featured=False):
+    name = clean_plant_name(m["model_name"])
+    price_line = pot_card_price_line(m)
+    cls = "pot-card pot-card-v2" + (" pot-card-featured" if featured else "")
+    return f"""<article class="{cls}" data-motion="fade-up">
+<a class="pot-card-link" href="/pots/{esc(m['product_slug'])}/">
+<img loading="lazy" src="/{esc(img_url(m.get('image')))}" alt="{esc(name)}">
 <div class="info"><p class="eyebrow">{esc(m.get('collection',''))}</p>
-<h3>{esc(m['model_name'])}</h3>
-<p class="meta">From {fp} · {esc(sizes or 'Multiple options')}</p>
-<span class="btn ghost" style="margin-top:10px;display:inline-block">Explore</span></div></a>"""
+<h3>{esc(name)}</h3>
+<p class="meta">{price_line}</p></a>
+<div class="pot-card-actions">
+<a class="btn ghost" href="/pots/{esc(m['product_slug'])}/">Explore</a>
+<a class="btn-wa" href="{pot_message(name)}" target="_blank" rel="noopener">WhatsApp</a>
+</div></article>"""
 
 
 def home_page():
@@ -90,82 +105,102 @@ def home_page():
         f'<span class="link">{cta} →</span></div></a>'
         for num, title, text, img, href, cta in pillars
     )
-    featured_pots = "".join(pot_card(m) for m in ACTIVE_POTS[:6])
+    featured_pots = "".join(pot_card(m, featured=(i == 0)) for i, m in enumerate(ACTIVE_POTS[:5]))
     curated = "".join(plant_card(p) for p in ACTIVE_PLANTS[:12])
-    blog3 = BLOGS[:3]
+    blog3 = homepage_journal_posts(BLOGS, limit=3)
     blog_html = ""
     for b in blog3:
-        m = re.search(r'wp-content/uploads/[^"\')\s]+', b.get("content", "") or "")
-        thumb = img_url(m.group(0)) if m else "images/2022_03_ALOCASIA-BLACK.jpg"
-        blog_html += f"""<a class="blog-card reveal" href="/blog/{esc(b['slug'])}/"><img loading="lazy" src="/{esc(thumb)}" alt="">
+        thumb = blog_featured_image(b)
+        blog_html += f"""<a class="blog-card blog-card-home reveal" href="/blog/{esc(b['slug'])}/" data-motion="fade-up"><div class="blog-card-img"><img loading="lazy" src="/{esc(thumb)}" alt="{esc(b['title'])}"></div>
 <div class="body"><p class="date">{esc(b['date'][:10])}</p><h3>{esc(b['title'])}</h3></div></a>"""
 
     body = f"""
-<section class="hero-v4" data-motion="fade-up"><div class="inner">
+<section class="hero-v4 hero-editorial" data-motion="fade-up"><div class="inner">
 <span class="kicker">More than a nursery</span>
 <h1>Plants for homes.<br>Pots for spaces.<br>Greenery for business.</h1>
-<p class="lead">A premium plant and green-space brand — curated retail, designer planters, and enquiry-led solutions for offices, landscapes and events.</p>
+<p class="lead">A premium botanical and green-space studio — curated plants, designer planters, and enquiry-led solutions for offices, landscapes and events.</p>
 <div class="hero-actions">
 <a class="btn" href="/plants/">Explore Plants</a>
 <a class="btn ghost" href="/pots/">Explore Pots</a>
 <a class="btn-wa" href="{general_message()}" target="_blank" rel="noopener">Connect With Us</a>
 </div></div></section>
 
-<section class="container" data-motion="fade-up"><span class="eyebrow center">Three pillars</span>
-<h2 class="sec center">Everything we grow and build</h2>
-<div class="pillar-grid" style="margin-top:32px">{pillar_html}</div></section>
+<section class="section-breathe"><div class="container" data-motion="fade-up">
+<span class="eyebrow center">Three pillars</span>
+<h2 class="sec center sec-display">Everything we grow and build</h2>
+<div class="pillar-grid pillar-grid-editorial">{pillar_html}</div></div></section>
 
-<section class="alt"><div class="container" data-motion="fade-up">
-<span class="eyebrow">Pots &amp; planters</span><h2 class="sec">Collections that define a room</h2>
-<p class="sub">Eco series, statement silhouettes and illuminated planters — priced from Excel, enquired on WhatsApp.</p>
-<div class="collection-row">{featured_pots}</div>
-<div style="margin-top:28px"><a class="btn" href="/pots/">View all pots</a></div></div></section>
+<section class="pots-editorial alt"><div class="container">
+<div class="split-head" data-motion="fade-up">
+<div><span class="eyebrow">Pots &amp; planters</span><h2 class="sec sec-display">Collections that define a room</h2>
+<p class="sub">Eco series, statement silhouettes and illuminated planters — enquire on WhatsApp with your size and colour.</p></div>
+<a class="btn" href="/pots/">View all pots</a></div>
+<div class="pot-rail">{featured_pots}</div></div></section>
 
-<section><div class="container" data-motion="fade-up">
-<span class="eyebrow">Curated plants</span><h2 class="sec">Curated for greener spaces</h2>
-<p class="sub">A focused selection of our best-selling greens — not an endless catalog.</p>
-<div class="rail">{curated}</div></div></section>
+<section class="section-breathe"><div class="container">
+<div class="split-head" data-motion="fade-up"><div><span class="eyebrow">Curated plants</span>
+<h2 class="sec sec-display">Curated for greener spaces</h2>
+<p class="sub">Twenty nursery favourites — not an endless catalog.</p></div>
+<a class="btn ghost" href="/plants/">Shop all plants</a></div>
+<div class="plant-rail">{curated}</div></div></section>
 
-<section class="green-hero"><div class="container" data-motion="fade-up">
-<span class="eyebrow" style="color:var(--lime)">Green spaces</span>
-<h1>From a single office plant to a complete landscaped space.</h1>
-<p style="opacity:.88;max-width:560px;margin-top:14px">Corporate plant rental, maintenance, commercial greenery, landscaping and event installations — enquiry-led, professionally delivered.</p>
-<div class="green-paths">
-<a class="green-path" href="/green-spaces/corporate-plant-rental/"><h3>Corporate plant rental</h3><p>Lobbies, living walls and workspace greens.</p></a>
-<a class="green-path" href="/green-spaces/landscaping/"><h3>Landscaping</h3><p>Residential terraces to commercial landscapes.</p></a>
-<a class="green-path" href="/green-spaces/maintenance/"><h3>Plant maintenance</h3><p>Keep installed greens healthy year-round.</p></a>
-<a class="green-path" href="/events/"><h3>Events &amp; decor</h3><p>Weddings, corporate events and venue styling.</p></a>
-</div>
-<a class="btn-wa" style="margin-top:28px;display:inline-block" href="{corporate_message()}" target="_blank" rel="noopener">Connect With Us</a>
+<section class="green-spaces-editorial" data-motion="fade-up">
+<div class="green-spaces-bg" aria-hidden="true"></div>
+<div class="container green-spaces-inner">
+<span class="eyebrow light">Green spaces</span>
+<h2 class="sec-display light">From one office plant to a fully landscaped space.</h2>
+<p class="green-lede">Corporate plant rental, maintenance, commercial greenery, landscaping and event installations — professionally delivered, enquiry-led.</p>
+<nav class="green-nav" aria-label="Green space services">
+<a href="/green-spaces/corporate-plant-rental/"><span>01</span><strong>Corporate plant rental</strong><small>Lobbies, living walls, workspace greens</small></a>
+<a href="/green-spaces/maintenance/"><span>02</span><strong>Plant maintenance</strong><small>Care for installed plant programs</small></a>
+<a href="/green-spaces/landscaping/"><span>03</span><strong>Landscaping</strong><small>Terraces, gardens, commercial landscapes</small></a>
+<a href="/events/"><span>04</span><strong>Events &amp; decor</strong><small>Weddings, venues, brand experiences</small></a>
+</nav>
+<a class="btn-wa btn-wa-light" href="{corporate_message()}" target="_blank" rel="noopener">Connect With Us</a>
 </div></section>
 
-<section class="alt"><div class="container center" data-motion="fade-up">
-<span class="eyebrow">Our work</span><h2 class="sec">Spaces we&apos;ve helped grow</h2>
-<p class="sub">Corporate, hospitality, weddings and commercial installs — real projects from our nursery team.</p>
-<div class="events-grid">
-<a class="event reveal" href="/events/corporate/"><img loading="lazy" src="/img/home/test.jpg" alt="Corporate greenery"><div class="cap">Corporate</div></a>
-<a class="event reveal" href="/events/weddings/"><img loading="lazy" src="/img/home/test.jpg" alt="Weddings"><div class="cap">Weddings</div></a>
-<a class="event reveal" href="/events/landscaping/"><img loading="lazy" src="/img/home/test.jpg" alt="Landscaping"><div class="cap">Landscaping</div></a>
-<a class="event reveal" href="/events/parties/"><img loading="lazy" src="/img/home/test.jpg" alt="Events"><div class="cap">Events</div></a>
-</div></div></section>
+<section class="work-editorial alt"><div class="container">
+<div class="work-layout" data-motion="fade-up">
+<div class="work-visual">
+<img loading="lazy" src="/images/2022_05_013A1506.jpg" alt="Green space installation by Indore Nursery">
+<p class="work-note">Photography from our nursery and event work — additional project images will be added as they are supplied.</p>
+</div>
+<div class="work-copy">
+<span class="eyebrow">Our work</span>
+<h2 class="sec sec-display">Spaces we help grow</h2>
+<p class="sub">Corporate, hospitality, landscaping and celebrations — structured for real project photography when ready.</p>
+<ul class="work-cats">
+<li><a href="/events/corporate/">Corporate &amp; hospitality</a></li>
+<li><a href="/events/weddings/">Weddings &amp; celebrations</a></li>
+<li><a href="/green-spaces/landscaping/">Landscaping</a></li>
+<li><a href="/events/">Events &amp; decor</a></li>
+</ul>
+<a class="btn" href="/events/">Explore our work</a>
+</div></div></div></section>
 
-<section><div class="container"><div class="reviews-placeholder reveal" data-motion="fade-up">
-<h3 style="font-family:Fraunces,serif;color:var(--forest);margin-bottom:8px">Client reviews</h3>
-<p>Genuine Google and client reviews will appear here — placeholder reserved for verified testimonials.</p></div></div></section>
+<section class="clients-band"><div class="container center" data-motion="fade-up">
+<span class="eyebrow">Clients</span>
+<h2 class="sec sec-display">Spaces we&apos;ve helped grow</h2>
+<div class="client-strip client-strip-home"><b>PRIDE Hotels</b><b>&#2360;&#2371;&#2332;&#2344;</b><b>SAJDHAJ</b><b>&#2354;&#2325;&#2381;&#2359;&#2381;&#2350;&#2368; Sweets</b><b>Kashiwal Honda</b></div>
+</div></section>
 
-<section class="alt"><div class="container" data-motion="fade-up">
-<span class="eyebrow">Journal</span><h2 class="sec">Notes from the nursery</h2>
-<div class="blog-grid">{blog_html}</div>
-<a class="btn" style="margin-top:24px" href="/blog/">Read the journal</a></div></section>
+<section class="section-breathe"><div class="container"><div class="reviews-placeholder reveal" data-motion="fade-up">
+<h3>Client reviews</h3>
+<p>Verified reviews will be added here when available — we don&apos;t publish placeholder testimonials.</p></div></div></section>
 
-<section><div class="container"><div class="cta-band reveal" data-motion="fade-up">
+<section class="journal-editorial alt"><div class="container" data-motion="fade-up">
+<div class="split-head"><div><span class="eyebrow">Journal</span><h2 class="sec sec-display">Notes from the nursery</h2></div>
+<a class="btn ghost" href="/blog/">Read the journal</a></div>
+<div class="blog-grid blog-grid-home">{blog_html}</div></div></section>
+
+<section class="section-breathe"><div class="container"><div class="cta-band reveal" data-motion="fade-up">
 <h2>Let&apos;s make your space greener.</h2>
-<p style="opacity:.9">Plants, pots or a full green-space brief — message us on WhatsApp.</p>
+<p>Plants, pots or a full green-space brief — message us on WhatsApp.</p>
 <div class="hero-actions"><a class="btn-wa" href="{general_message()}" target="_blank" rel="noopener">WhatsApp Us</a>
 <a class="btn ghost" href="/events/">Explore our work</a></div></div></div></section>"""
     return page_shell(
-        "Indore Nursery | Plants, Pots & Green-Space Solutions",
-        "Premium plants for homes, designer pots and planters, and corporate greenery, landscaping and event decor. Enquire on WhatsApp.",
+        "Best Plant Nursery in Indore | Plants, Pots & Green Spaces",
+        "Indore Nursery — indoor & outdoor plants, designer pots, corporate greenery, landscaping and event decor. Enquire on WhatsApp.",
         body,
         "/",
     )
@@ -190,18 +225,19 @@ def plants_hub():
 
 def plant_detail(p):
     fact = FACTS.get(p["slug"], "")
-    desc = strip_html(p.get("short_description") or p.get("description") or "")
+    name = clean_plant_name(p["name"])
+    desc = plant_teaser(p, limit=600)
     related = [x for x in ACTIVE_PLANTS if x["slug"] != p["slug"]][:4]
     rel = "".join(plant_card(r) for r in related)
     title = p.get("seo_title") or f"{p['name']} | Indore Nursery"
     meta = p.get("seo_description") or desc[:155]
     body = f"""<div class="container listing-hd">
-<nav class="crumbs"><a href="/">Home</a> / <a href="/plants/">Plants</a> / {esc(p['name'])}</nav>
-<div class="pd"><img class="main" src="/{esc(img_url(p.get('image')))}" alt="{esc(p['name'])}">
-<div><h1>{esc(p['name'])}</h1>
+<nav class="crumbs"><a href="/">Home</a> / <a href="/plants/">Plants</a> / {esc(name)}</nav>
+<div class="pd"><img class="main" src="/{esc(img_url(p.get('image')))}" alt="{esc(name)}">
+<div><h1>{esc(name)}</h1>
 <p class="variant-price">{money(p.get('price'))}{(' <span class="old">'+money(p.get('regular_price'))+'</span>') if p.get('regular_price') and p.get('price') and p['regular_price']>p['price'] else ''}</p>
-<p style="margin-top:16px;color:var(--muted)">{esc(desc[:600])}</p>
-<a class="btn-wa" href="{plant_message(p['name'])}" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
+<p style="margin-top:16px;color:var(--muted);max-width:52ch">{esc(desc)}</p>
+<a class="btn-wa" href="{plant_message(name)}" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
 {f'<div class="funfact"><span class="ff-tag">Did you know?</span><p>{esc(fact)}</p></div>' if fact else ''}
 <section style="margin-top:40px"><h2 class="sec">You may also like</h2><div class="grid">{rel}</div></section></div>"""
     return page_shell(title, meta, body, f"/plants/{p['slug']}/")
@@ -221,28 +257,26 @@ def pots_hub():
 
 
 def pot_detail(m):
-    payload = {
-        "model_name": m["model_name"],
-        "wa_phone": WA_PHONE,
-        "sizes": m.get("sizes") or [],
-        "colours": m.get("colours") or [],
-        "variants": m.get("variants") or [],
-    }
+    payload = pot_variant_payload(m)
+    payload["wa_phone"] = WA_PHONE
     variant_json = json.dumps(payload)
-    desc = strip_html(m.get("short_description") or m.get("description") or "")[:700]
-    title = m.get("seo_title") or f"{m['model_name']} | Indore Nursery"
+    desc = html_lib.unescape(strip_html(m.get("short_description") or m.get("description") or "")[:700])
+    name = clean_plant_name(m["model_name"])
+    title = m.get("seo_title") or f"{name} | Indore Nursery"
     meta = m.get("seo_description") or desc[:155]
     extra = '<script src="/assets/js/pot-variants.js" defer></script>'
+    size_fs = '<fieldset data-size-field><legend>Size</legend><div class="chip-row" data-size-options></div></fieldset>'
+    colour_fs = '<fieldset data-colour-field><legend>Colour</legend><div class="chip-row" data-colour-options></div></fieldset>'
     body = f"""<div class="container listing-hd" id="pot-variant-root">
-<nav class="crumbs"><a href="/">Home</a> / <a href="/pots/">Pots</a> / {esc(m['model_name'])}</nav>
-<div class="pd"><img class="main" src="/{esc(img_url(m.get('image')))}" alt="{esc(m['model_name'])}">
-<div><h1>{esc(m['model_name'])}</h1><p class="eyebrow">{esc(m.get('collection',''))}</p>
-<p style="margin-top:12px;color:var(--muted)">{esc(desc)}</p>
+<nav class="crumbs"><a href="/">Home</a> / <a href="/pots/">Pots</a> / {esc(name)}</nav>
+<div class="pd"><img class="main" src="/{esc(img_url(m.get('image')))}" alt="{esc(name)}">
+<div><h1>{esc(name)}</h1><p class="eyebrow">{esc(m.get('collection',''))}</p>
+<p style="margin-top:12px;color:var(--muted);max-width:52ch">{esc(desc)}</p>
 <div class="variant-picker">
-<fieldset><legend>Size</legend><div class="chip-row" data-size-options></div></fieldset>
-<fieldset><legend>Colour</legend><div class="chip-row" data-colour-options></div></fieldset>
+{size_fs}
+{colour_fs}
 <p class="variant-price" data-variant-price>—</p><p class="old" data-variant-regular></p>
-<a class="btn-wa" data-variant-wa href="{pot_message(m['model_name'])}" target="_blank" rel="noopener">Enquire on WhatsApp</a>
+<a class="btn-wa" data-variant-wa href="{pot_message(name)}" target="_blank" rel="noopener">Enquire on WhatsApp</a>
 </div></div></div>
 <script type="application/json" id="pot-variant-data">{variant_json}</script></div>"""
     return page_shell(title, meta, body, f"/pots/{m['product_slug']}/", extra_scripts=extra)
@@ -290,7 +324,8 @@ def blog_pages():
         "Plant care guides and green living articles.",
         f'<div class="container listing-hd"><h1>Journal</h1><p class="sub">{len(BLOGS)} articles</p><div class="blog-grid">'
         + "".join(
-            f'<a class="blog-card" href="/blog/{esc(b["slug"])}/"><div class="body"><p class="date">{esc(b["date"][:10])}</p><h3>{esc(b["title"])}</h3></div></a>'
+            f'<a class="blog-card" href="/blog/{esc(b["slug"])}/"><div class="blog-card-img"><img loading="lazy" src="/{esc(blog_featured_image(b))}" alt="{esc(b["title"])}"></div>'
+            f'<div class="body"><p class="date">{esc(b["date"][:10])}</p><h3>{esc(b["title"])}</h3></div></a>'
             for b in sorted(BLOGS, key=lambda x: x["date"], reverse=True)
         )
         + "</div></div>",
