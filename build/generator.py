@@ -14,6 +14,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 from lib.brand import client_logo_marquee_html
+from lib.location import homepage_visit_section_html
 from lib.config import PLANTS_JSON, POTS_JSON, SITE_URL, WA_PHONE
 from lib.presentation import (
     blog_featured_image,
@@ -61,27 +62,27 @@ HOME_POT_SHOWCASE_SLUGS = (
 
 HOME_WORK_PORTFOLIO = (
     {
-        "src": "images/2025_10_Indore-nursery-3.jpg",
-        "alt": "Large-scale plant installation at a venue in Indore",
-        "category": "Events",
-        "title": "Venue installations",
-        "href": "/events/",
+        "src": "images/2025_07_Vertical-Garden-for-outdoor-plants.jpg",
+        "alt": "Vertical garden and living wall installation with mixed foliage",
+        "category": "Corporate",
+        "title": "Living wall installation",
+        "href": "/green-spaces/corporate-plant-rental/",
         "featured": True,
     },
     {
-        "src": "images/2025_11_landscape-gardening-1.jpg",
-        "alt": "Landscape planting and garden styling by Indore Nursery",
+        "src": "images/2025_07_zen-garden.jpg",
+        "alt": "Completed zen garden landscape with stone, water and planting",
         "category": "Landscaping",
-        "title": "Landscape gardens",
+        "title": "Landscape garden",
         "href": "/green-spaces/landscaping/",
         "featured": False,
     },
     {
-        "src": "images/2025_10_Indore-nursery-4.jpg",
-        "alt": "Wedding and celebration decor with live greenery",
-        "category": "Weddings",
-        "title": "Celebration decor",
-        "href": "/events/weddings/",
+        "src": "img/home/outdoor.jpg",
+        "alt": "Terrace planting at a hospitality property with palms and seasonal colour",
+        "category": "Hospitality",
+        "title": "Terrace greenery",
+        "href": "/events/corporate/",
         "featured": False,
     },
 )
@@ -179,6 +180,10 @@ def homepage_work_portfolio_html() -> str:
     stack_html = "".join(work_portfolio_piece(p) for p in stack)
     mobile_html = "".join(work_portfolio_piece(p) for p in HOME_WORK_PORTFOLIO)
     return f"""<div class="work-portfolio" data-motion="fade-up">
+<div class="work-portfolio-intro">
+<span class="eyebrow">Our work</span>
+<h2 class="sec sec-display">Spaces we&apos;ve helped grow</h2>
+</div>
 <div class="work-portfolio-grid work-portfolio-grid-desktop">
 <a class="work-piece work-piece-feature" href="{esc(featured['href'])}">
 <div class="work-piece-media">
@@ -190,11 +195,9 @@ def homepage_work_portfolio_html() -> str:
 <div class="work-portfolio-stack">{stack_html}</div>
 </div>
 <div class="work-portfolio-grid work-portfolio-grid-mobile">{mobile_html}</div>
-<div class="work-portfolio-meta">
-<span class="eyebrow">Our work</span>
-<h2 class="sec sec-display">Spaces we&apos;ve helped grow</h2>
+<div class="work-portfolio-foot">
 <p class="work-cat-inline">{cat_line}</p>
-<a class="work-explore" href="/events/"><span>Explore our work</span><span class="work-explore-arrow" aria-hidden="true">→</span></a>
+<a class="btn" href="/events/">Explore our work</a>
 </div></div>"""
 
 
@@ -244,7 +247,11 @@ def home_page():
 <div class="split-head" data-motion="fade-up"><div><span class="eyebrow">Curated plants</span>
 <h2 class="sec sec-display">Curated for greener spaces</h2></div>
 <a class="btn ghost" href="/plants/">Shop all plants</a></div>
-<div class="plant-rail">{curated}</div></div></section>
+<div class="carousel-shell" data-carousel="plants">
+<button type="button" class="carousel-arrow prev" aria-label="Previous plants">&#8249;</button>
+<div class="plant-rail">{curated}</div>
+<button type="button" class="carousel-arrow next" aria-label="Next plants">&#8250;</button>
+</div></div></section>
 
 <section class="green-spaces-editorial" data-motion="fade-up">
 <div class="green-spaces-bg" aria-hidden="true"></div>
@@ -271,6 +278,8 @@ def home_page():
 <div class="journal-head"><span class="eyebrow">Journal</span><h2 class="sec sec-display">Notes from the nursery</h2></div>
 <div class="blog-grid blog-grid-home">{blog_html}</div>
 <div class="journal-actions"><a class="btn" href="/blog/">Read the journal</a></div></div></section>
+
+{homepage_visit_section_html()}
 
 <section class="section-breathe"><div class="container"><div class="cta-band reveal" data-motion="fade-up">
 <h2>Let&apos;s make your space greener.</h2>

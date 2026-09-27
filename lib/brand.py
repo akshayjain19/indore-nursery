@@ -9,7 +9,7 @@ from lib.util import esc
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOGO_SRC = "/assets/brand/indore-nursery-logo.jpg"
-LOGO_FOOTER_SRC = "/assets/brand/indore-nursery-logo.png"
+LOGO_FOOTER_SRC = "/assets/brand/indore-nursery-logo-light.png"
 LOGO_ALT = "Indore Nursery"
 LOGO_WIDTH = 757
 LOGO_HEIGHT = 279

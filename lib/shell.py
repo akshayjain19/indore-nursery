@@ -1,5 +1,15 @@
 from lib.brand import logo_link
-from lib.config import SITE_NAME, SITE_URL, TEL_URI, WA_PHONE, WA_PHONE_DISPLAY
+from lib.config import (
+    NURSERY_ADDRESS_CITY,
+    NURSERY_ADDRESS_LINE1,
+    NURSERY_ADDRESS_LINE2,
+    SITE_EMAIL,
+    SITE_NAME,
+    SITE_URL,
+    TEL_URI,
+    WA_PHONE_DISPLAY,
+)
+from lib.location import google_maps_directions_url
 from lib.util import esc, wa_link
 from lib.whatsapp import general_message
 
@@ -59,8 +69,22 @@ FOOT_LINKS = (
     ("Contact", "/contact/"),
 )
 
+FOOT_ADDRESS = (
+    f'<address class="footer-address" itemscope itemtype="https://schema.org/PostalAddress">'
+    f'<span itemprop="streetAddress">{esc(NURSERY_ADDRESS_LINE1)} {esc(NURSERY_ADDRESS_LINE2)}</span><br>'
+    f'<span itemprop="addressLocality">Indore</span>, '
+    f'<span itemprop="addressRegion">Madhya Pradesh</span> '
+    f'<span itemprop="postalCode">452011</span>'
+    f"</address>"
+)
+
 FOOT = (
-    "<footer><div class=\"container foot\">"
+    '<footer itemscope itemtype="https://schema.org/GardenStore">'
+    f'<meta itemprop="name" content="{esc(SITE_NAME)}">'
+    f'<meta itemprop="email" content="{esc(SITE_EMAIL)}">'
+    f'<meta itemprop="telephone" content="{esc(WA_PHONE_DISPLAY)}">'
+    f'<link itemprop="url" href="https://indorenursery.com/">'
+    "<div class=\"container foot\">"
     '<div class="fbrand">'
     + logo_link("logo-footer")
     + "<p>Plants for homes. Pots for spaces. Greenery for businesses.</p>"
@@ -77,8 +101,10 @@ FOOT = (
     "<div><h4>Contact</h4>"
     f'<a href="{general_message()}" target="_blank" rel="noopener">{esc(WA_PHONE_DISPLAY)} (WhatsApp)</a>'
     f'<a href="{TEL_URI}">Call us</a>'
-    "<span>Indore, Madhya Pradesh</span>"
-    "</div></div>"
+    f'<a href="mailto:{SITE_EMAIL}">{esc(SITE_EMAIL)}</a>'
+    f'<a href="{google_maps_directions_url()}" target="_blank" rel="noopener noreferrer">Get directions</a>'
+    + FOOT_ADDRESS
+    + "</div></div>"
     + f'<div class="copy">&copy; 2026 {esc(SITE_NAME)} &middot; All rights reserved</div>'
     "</div></footer>"
 )
