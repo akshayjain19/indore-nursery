@@ -138,7 +138,7 @@ def homepage_featured_pots():
     return picked[:4]
 
 
-def pot_card(m, featured=False, homepage=False):
+def pot_card(m, featured=False, homepage=False, catalog=False):
     name = clean_plant_name(m["model_name"])
     price_line = pot_card_price_line(m)
     cls = "pot-card pot-card-v2"
@@ -146,10 +146,13 @@ def pot_card(m, featured=False, homepage=False):
         cls += " pot-card-home"
     elif featured:
         cls += " pot-card-featured"
+    collection_line = ""
+    if not catalog:
+        collection_line = f'<p class="eyebrow">{esc(m.get("collection", ""))}</p>'
     return f"""<article class="{cls}" data-motion="fade-up">
 <a class="pot-card-link" href="/pots/{esc(m['product_slug'])}/">
 <img loading="lazy" src="/{esc(img_url(m.get('image')))}" alt="{esc(name)}">
-<div class="info"><p class="eyebrow">{esc(m.get('collection',''))}</p>
+<div class="info">{collection_line}
 <h3>{esc(name)}</h3>
 <p class="meta">{price_line}</p></div></a>
 <div class="pot-card-actions">
@@ -337,20 +340,20 @@ def pots_hub():
         by_col.setdefault(m.get("collection") or "Planters", []).append(m)
     blocks = ""
     for idx, (col, items) in enumerate(sorted(by_col.items())):
-        cards = "".join(pot_card(m) for m in items)
+        cards = "".join(pot_card(m, catalog=True) for m in items)
         first = " pots-collection--first" if idx == 0 else ""
         blocks += (
             f'<section class="container pots-collection{first}">'
-            f'<span class="eyebrow">{esc(col)}</span>'
-            f'<h2 class="sec">{esc(col)}</h2>'
-            f'<div class="collection-row">{cards}</div></section>'
+            f'<h2 class="sec pots-collection-title">{esc(col)}</h2>'
+            f'<div class="collection-row pots-collection-grid">{cards}</div></section>'
         )
-    body = f"""<header class="catalog-hero pots-catalog-hero">
+    body = f"""<main class="pots-catalog-page">
+<header class="catalog-hero pots-catalog-hero">
 <div class="container">
 <p class="eyebrow">POTS &amp; PLANTERS</p>
 <h1>Pots &amp; Planters</h1>
-<p class="catalog-hero-lede">Planters and pots designed for plants, spaces and every kind of setting.</p>
-</div></header>{blocks}"""
+<p class="catalog-hero-lede">Pots designed to complement your plants and spaces.</p>
+</div></header>{blocks}</main>"""
     return page_shell("Pots & Planters | Indore Nursery", "Designer planters and pot collections with variant pricing.", body, "/pots/")
 
 
