@@ -547,3 +547,80 @@ color:#fff;
 @media(prefers-reduced-motion:reduce){
 .about-offer{transition:none}
 }
+
+/* ===== Polish pass v17 — Green Spaces B2B landing ===== */
+.green-spaces-page{overflow-x:hidden}
+.green-spaces-page .green-hero{padding:clamp(72px,10vw,96px) 0 clamp(48px,6vw,64px)}
+.gs-intro-grid{max-width:920px}
+.gs-intro-copy .sec{margin:0 0 18px;max-width:22ch;line-height:1.08}
+.gs-lede{margin:0 0 22px;max-width:52ch;color:var(--muted);font-size:clamp(1rem,1.55vw,1.08rem);line-height:1.58}
+.gs-service-line{
+display:flex;flex-wrap:wrap;gap:10px 18px;
+font-size:.82rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+}
+.gs-service-line a{
+color:var(--pine);text-decoration:none;border-bottom:1px solid rgba(45,90,61,.25);
+padding-bottom:2px;transition:color .2s ease,border-color .2s ease;
+}
+.gs-service-line a:hover{color:var(--forest);border-color:var(--forest)}
+.gs-process{padding:clamp(36px,5vw,56px) 0}
+.gs-steps{margin-top:clamp(8px,2vw,16px)}
+.gs-b2b-split{
+display:grid;
+grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);
+gap:clamp(28px,4.5vw,52px);
+align-items:center;
+}
+.gs-b2b-media{
+border-radius:22px;overflow:hidden;border:1px solid var(--line);
+box-shadow:0 22px 55px rgba(22,48,31,.1);
+min-height:clamp(260px,38vw,480px);
+}
+.gs-b2b-media img{width:100%;height:100%;min-height:clamp(260px,38vw,480px);object-fit:cover}
+.gs-b2b-copy .sec{margin:0 0 16px;max-width:18ch;line-height:1.08}
+.gs-b2b-copy p{margin:0;max-width:46ch;color:var(--ink);line-height:1.62}
+.gs-services{padding:clamp(40px,6vw,72px) 0 clamp(32px,5vw,56px)}
+.gs-service-list{display:flex;flex-direction:column;gap:clamp(22px,3.5vw,36px);margin-top:clamp(20px,3vw,32px)}
+.gs-service{
+display:grid;
+grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+gap:clamp(20px,3vw,36px);
+align-items:center;
+padding:clamp(12px,2vw,18px);
+border-radius:22px;
+border:1px solid transparent;
+transition:border-color .25s ease,background .25s ease;
+}
+.gs-service:hover{border-color:var(--line);background:rgba(255,255,255,.4)}
+.gs-service--reverse{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+.gs-service--reverse .gs-service-media{order:2}
+.gs-service--reverse .gs-service-copy{order:1}
+.gs-service-media{
+border-radius:18px;overflow:hidden;border:1px solid var(--line);
+min-height:clamp(220px,30vw,340px);
+}
+.gs-service-media img{width:100%;height:100%;min-height:clamp(220px,30vw,340px);object-fit:cover}
+.gs-service-copy h3{
+margin:0 0 10px;
+font-size:clamp(1.35rem,2.4vw,1.75rem);
+color:var(--forest);
+font-family:'Fraunces',Georgia,serif;
+}
+.gs-service-copy p{margin:0 0 18px;color:var(--muted);max-width:44ch;line-height:1.55}
+.gs-service-actions{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center}
+.gs-service-actions .btn-wa{margin:0}
+.gs-learn{margin-left:0!important;padding:10px 20px;font-size:.88rem}
+.gs-clients{padding:clamp(36px,5vw,52px) 0}
+.gs-clients .sec{margin:8px auto 22px}
+.gs-cta-wrap{padding-bottom:clamp(48px,6vw,64px)}
+@media(max-width:900px){
+.gs-b2b-split{grid-template-columns:minmax(0,1fr)}
+.gs-b2b-media{min-height:clamp(240px,56vw,360px)}
+.gs-b2b-media img{min-height:clamp(240px,56vw,360px)}
+.gs-service,.gs-service--reverse{grid-template-columns:minmax(0,1fr)}
+.gs-service--reverse .gs-service-media,.gs-service--reverse .gs-service-copy{order:unset}
+.gs-service-line{gap:8px 14px;font-size:.78rem}
+}
+@media(prefers-reduced-motion:reduce){
+.gs-service{transition:none}
+}
