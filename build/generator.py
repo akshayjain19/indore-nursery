@@ -17,8 +17,8 @@ from lib.about import about_page_body
 from lib.brand import client_logo_marquee_html
 from lib.location import homepage_visit_section_html
 from lib.config import PLANTS_JSON, POTS_JSON, SITE_URL, WA_PHONE
+from lib.blog_images import blog_featured_image, blog_image_alt, validate_manifest
 from lib.presentation import (
-    blog_featured_image,
     clean_plant_name,
     homepage_journal_posts,
     plant_teaser,
@@ -223,7 +223,7 @@ def home_page():
     blog_html = ""
     for b in blog3:
         thumb = blog_featured_image(b)
-        blog_html += f"""<a class="blog-card blog-card-home reveal" href="/blog/{esc(b['slug'])}/" data-motion="fade-up"><div class="blog-card-img"><img loading="lazy" src="/{esc(thumb)}" alt="{esc(b['title'])}"></div>
+        blog_html += f"""<a class="blog-card blog-card-home reveal" href="/blog/{esc(b['slug'])}/" data-motion="fade-up"><div class="blog-card-img"><img loading="lazy" src="/{esc(thumb)}" alt="{esc(blog_image_alt(b))}"></div>
 <div class="body"><p class="date">{esc(b['date'][:10])}</p><h3>{esc(b['title'])}</h3></div></a>"""
 
     body = f"""
@@ -426,7 +426,7 @@ def blog_pages():
         "Plant care guides and green living articles.",
         f'<div class="container listing-hd"><h1>Journal</h1><p class="sub">{len(BLOGS)} articles</p><div class="blog-grid">'
         + "".join(
-            f'<a class="blog-card" href="/blog/{esc(b["slug"])}/"><div class="blog-card-img"><img loading="lazy" src="/{esc(blog_featured_image(b))}" alt="{esc(b["title"])}"></div>'
+            f'<a class="blog-card" href="/blog/{esc(b["slug"])}/"><div class="blog-card-img"><img loading="lazy" src="/{esc(blog_featured_image(b))}" alt="{esc(blog_image_alt(b))}"></div>'
             f'<div class="body"><p class="date">{esc(b["date"][:10])}</p><h3>{esc(b["title"])}</h3></div></a>'
             for b in sorted(BLOGS, key=lambda x: x["date"], reverse=True)
         )
@@ -589,6 +589,11 @@ def inject_shell_on_events():
 
 
 def main():
+    missing = validate_manifest()
+    for w in missing[:15]:
+        print("WARN blog image:", w)
+    if len(missing) > 15:
+        print(f"WARN blog image: ... and {len(missing) - 15} more missing files")
     write("index.html", home_page())
     write("plants/index.html", plants_hub())
     for p in PLANTS:

@@ -6,6 +6,7 @@ import html as html_lib
 import re
 
 from lib.util import img_url, money, strip_html
+from lib.blog_images import blog_featured_image
 
 _PLACEHOLDER_DIMS = frozenset({"standard", ""})
 
@@ -50,22 +51,6 @@ def plant_teaser(p, limit: int = 130) -> str:
         return raw
     cut = raw[:limit].rsplit(" ", 1)[0]
     return cut.rstrip(".,;") + "…"
-
-
-def blog_featured_image(b) -> str:
-    content = b.get("content") or ""
-    for pat in (
-        r'<img[^>]+src=["\'](https://indorenursery\.com/wp-content/uploads/[^"\']+)["\']',
-        r'<img[^>]+src=["\'](/wp-content/uploads/[^"\']+)["\']',
-        r'<img[^>]+src=["\'](/images/[^"\']+)["\']',
-        r"(https://indorenursery\.com/wp-content/uploads/[^\s\"'\)>]+)",
-        r"(/wp-content/uploads/[^\s\"'\)>]+)",
-        r"(wp-content/uploads/[^\s\"'\)>]+)",
-    ):
-        m = re.search(pat, content, re.I)
-        if m:
-            return img_url(m.group(1))
-    return img_url("")
 
 
 def homepage_journal_posts(blogs: list, limit: int = 3, pool: int = 40) -> list:

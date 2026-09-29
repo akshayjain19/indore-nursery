@@ -18,6 +18,7 @@ def main():
     if not os.path.isfile(excel):
         run([sys.executable, "scripts/migrate_catalog_to_excel.py"])
     run([sys.executable, "scripts/sync_excel.py"])
+    run([sys.executable, "scripts/sync_blog_images.py"])
     run([sys.executable, "build/generator.py"])
     run([sys.executable, "scripts/seo_inventory.py"])
     css_main = os.path.join(ROOT, "site", "assets", "css", "main.css")
