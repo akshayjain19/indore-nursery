@@ -14,6 +14,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 from lib.about import about_page_body
+from lib.green_spaces import green_spaces_page_body
 from lib.brand import client_logo_marquee_html
 from lib.location import homepage_visit_section_html
 from lib.config import PLANTS_JSON, POTS_JSON, SITE_URL, WA_PHONE
@@ -393,15 +394,12 @@ def service_page(title, h1, lede, bullets, canonical):
 
 
 def green_hub():
-    body = f"""<div class="green-hero"><div class="container">
-<h1>Green space solutions</h1>
-<div class="green-paths">
-<a class="green-path" href="/green-spaces/corporate-plant-rental/"><h3>Corporate plant rental</h3><p>Install, maintain and refresh planted workspaces.</p></a>
-<a class="green-path" href="/green-spaces/maintenance/"><h3>Plant maintenance</h3><p>Ongoing care for installed greens.</p></a>
-<a class="green-path" href="/green-spaces/landscaping/"><h3>Landscaping</h3><p>Design, planting and terrace gardens.</p></a>
-<a class="green-path" href="/events/"><h3>Events &amp; decor</h3><p>Weddings, corporate events and venue styling.</p></a>
-</div></div></div>"""
-    return page_shell("Green Space Solutions | Indore Nursery", "Corporate greenery, rental, maintenance and landscaping.", body, "/green-spaces/")
+    return page_shell(
+        "Green Space Solutions | Indore Nursery",
+        "Corporate greenery, rental, maintenance and landscaping.",
+        green_spaces_page_body(),
+        "/green-spaces/",
+    )
 
 
 def legacy_plant_page(p):
