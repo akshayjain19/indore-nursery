@@ -13,6 +13,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
+from lib.about import about_page_body
 from lib.brand import client_logo_marquee_html
 from lib.location import homepage_visit_section_html
 from lib.config import PLANTS_JSON, POTS_JSON, SITE_URL, WA_PHONE
@@ -476,12 +477,15 @@ def category_pages():
 
 
 def static_pages():
-    write("about/index.html", page_shell(
-        "About | Indore Nursery",
-        "Indore Nursery — plants, pots and green-space solutions.",
-        '<div class="container listing-hd"><h1>About Indore Nursery</h1><p style="margin-top:16px;max-width:680px">A working nursery serving homes, offices and events — live plants, designer planters, garden care and professional green-space installations with guidance on WhatsApp.</p></div>',
-        "/about/",
-    ))
+    write(
+        "about/index.html",
+        page_shell(
+            "About Indore Nursery | Plants, Pots & Green Spaces",
+            "Indore Nursery brings together plants, planters and green-space solutions for homes, workplaces, events and outdoor spaces in Indore.",
+            about_page_body(),
+            "/about/",
+        ),
+    )
     write("contact/index.html", page_shell(
         "Contact | Indore Nursery",
         "Contact Indore Nursery on WhatsApp.",
