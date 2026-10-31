@@ -206,6 +206,27 @@ def homepage_work_portfolio_html() -> str:
 </div></div>"""
 
 
+def homepage_category_menu_html() -> str:
+    categories = (
+        ("Plants", "/plants/", "images/2025_11_indoor-plants-1-300x169.jpg"),
+        ("Indoor plants", "/category/indoor-plants/", "images/2024_07_jpeg-optimizer_snake-plant-beige-pot-300x300.jpg"),
+        ("Outdoor plants", "/category/outdoor-plants/", "images/2025_10_OutdoorWallsandFencesBestCreeperPlants1-300x200.jpg"),
+        ("Pots", "/pots/", "images/2023_09_BELLO-HOOK-POT-YELLOW-scaled.jpeg"),
+        ("Succulents", "/category/succulents/", "images/2023_02_Miniature-Rose-Indoors-225x300.jpg"),
+        ("Soil & care", "/category/soil-and-fertilizer/", "images/2023_08_black-soil-1.webp"),
+        ("Garden tools", "/blog/", "images/2024_07_gardening-tool-300x200.jpg"),
+        ("Gifting", "/category/gifting-plants/", "images/2025_05_gifting-plants-300x300.jpeg"),
+        ("Green spaces", "/green-spaces/", "images/2025_07_Vertical-Garden-for-outdoor-plants-300x272.jpg"),
+    )
+    items = "".join(
+        f'<a class="home-category-item" href="{href}"><span class="home-category-image">'
+        f'<img src="/{image}" alt="" loading="eager"></span><span>{esc(label)}</span></a>'
+        for label, href, image in categories
+    )
+    return f"""<nav class="home-category-menu" aria-label="Shop by category">
+<div class="container"><div class="home-category-rail">{items}</div></div></nav>"""
+
+
 def home_page():
     pillars = [
         ("01", "Plants", "img/home/indoor.jpg", "/plants/", "Explore Plants"),
@@ -228,6 +249,7 @@ def home_page():
 <div class="body"><p class="date">{esc(b['date'][:10])}</p><h3>{esc(b['title'])}</h3></div></a>"""
 
     body = f"""
+{homepage_category_menu_html()}
 <section class="hero-v4 hero-editorial" data-motion="fade-up"><div class="inner">
 <span class="kicker">More than a nursery</span>
 <h1>Plants for homes.<br>Pots for spaces.<br>Greenery for business.</h1>
@@ -246,7 +268,11 @@ def home_page():
 <div class="split-head" data-motion="fade-up">
 <div><span class="eyebrow">Pots &amp; planters</span><h2 class="sec sec-display">Collections that define a room</h2></div>
 <a class="btn" href="/pots/">View all pots</a></div>
-<div class="pots-showcase-grid">{featured_pots}</div></div></section>
+<div class="carousel-shell" data-carousel="pots">
+<button type="button" class="carousel-arrow prev" aria-label="Previous pots">&#8249;</button>
+<div class="pots-showcase-grid pot-rail">{featured_pots}</div>
+<button type="button" class="carousel-arrow next" aria-label="Next pots">&#8250;</button>
+</div></div></section>
 
 <section class="section-breathe"><div class="container">
 <div class="split-head" data-motion="fade-up"><div><span class="eyebrow">Curated plants</span>
@@ -259,7 +285,6 @@ def home_page():
 </div></div></section>
 
 <section class="green-spaces-editorial" data-motion="fade-up">
-<div class="green-spaces-bg" aria-hidden="true"></div>
 <div class="container green-spaces-inner">
 <span class="eyebrow light">Green spaces</span>
 <h2 class="sec-display light">From one office plant to a fully landscaped space.</h2>

@@ -74,7 +74,7 @@ page = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name
 {marquee}
 <section style="padding:56px 0"><div class="container"><div class="svc-band"><h2>Have an event coming up?</h2><p>Share your date, venue and the look you have in mind \u2014 we&#8217;ll reply with a design note and quote the same day.</p><a class="btn-wa" href="{WA}?text={UQ('Hi! I want plant decor for my event in Indore.')}" target="_blank">WhatsApp us now</a></div></div></section>
 {FOOT}{SCRIPT}
-<div class="lb" id="lb"><button class="x">&#10005;</button><button class="prev">&#8592;</button><img id="lbimg" src="" alt=""><button class="next">&#8594;</button><div class="cap" id="lbcap"></div></div>
+<div class="lb" id="lb"><button class="x">&#10005;</button><button class="prev">&#8592;</button><img id="lbimg" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt=""><button class="next">&#8594;</button><div class="cap" id="lbcap"></div></div>
 <script>
 (function(){{
 var g=document.querySelector('.ev-grid'),lb=document.getElementById('lb'),im=document.getElementById('lbimg'),cap=document.getElementById('lbcap'),cur=0,vis=[];

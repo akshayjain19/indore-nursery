@@ -453,18 +453,18 @@ body{overflow-x:hidden}
 }
 .pillar-intro .sec.sec-display.center{margin:0 auto clamp(28px,4vw,42px);max-width:20ch}
 
-/* Homepage pots showcase — responsive grid */
+/* Homepage pots showcase — horizontally scrollable collection rail */
 .pots-editorial,.pots-editorial>.container{overflow:visible}
-.pots-showcase-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;width:100%;min-width:0;overflow:visible}
-.pots-showcase-grid .pot-card-v2{width:100%;min-width:0;max-width:100%;height:auto;display:flex;flex-direction:column}
+.pots-showcase-grid{display:flex;gap:20px;width:100%;min-width:0;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.pots-showcase-grid::-webkit-scrollbar{display:none}
+.pots-showcase-grid .pot-card-v2{flex:0 0 clamp(250px,27vw,330px);width:auto;min-width:0;max-width:calc(100vw - 72px);height:auto;display:flex;flex-direction:column;scroll-snap-align:start}
 .pots-showcase-grid .pot-card-v2 .pot-card-link{display:flex;flex-direction:column;flex:1 1 auto;min-width:0;color:inherit;text-decoration:none}
 .pots-showcase-grid .pot-card-v2 img{width:100%;max-width:100%;aspect-ratio:4/5;object-fit:cover}
 .pots-showcase-grid .pot-card-v2 h3{white-space:normal;overflow-wrap:anywhere;line-height:1.35;font-size:1.05rem}
 .pots-showcase-grid .pot-card-v2 .info{padding:16px 18px 10px;flex:0 0 auto;min-width:0}
 .pots-showcase-grid .pot-card-actions{display:flex;gap:10px;padding:0 18px 18px;margin-top:auto;flex-shrink:0}
 .pots-showcase-grid .pot-card-actions .btn,.pots-showcase-grid .pot-card-actions .btn-wa{flex:1;text-align:center;font-size:.82rem;padding:10px 12px}
-@media(max-width:900px){.pots-showcase-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:640px){.pots-showcase-grid{grid-template-columns:minmax(0,1fr)}.pots-showcase-grid .pot-card-actions{flex-direction:column}}
+@media(max-width:640px){.pots-showcase-grid .pot-card-v2{flex-basis:min(82vw,300px)}.pots-showcase-grid .pot-card-actions{flex-direction:column}}
 
 /* ===== Polish pass v8 — editorial work portfolio ===== */
 .clients-band .eyebrow{display:block;margin-bottom:10px}
@@ -646,18 +646,18 @@ nav.main{font-size:.68rem;gap:14px}
 }
 .pillar-intro .sec.sec-display.center{margin:0 auto clamp(28px,4vw,42px);max-width:20ch}
 
-/* Homepage pots showcase — responsive grid */
+/* Homepage pots showcase — horizontal rail override */
 .pots-editorial,.pots-editorial>.container{overflow:visible}
-.pots-showcase-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;width:100%;min-width:0;overflow:visible}
-.pots-showcase-grid .pot-card-v2{width:100%;min-width:0;max-width:100%;height:auto;display:flex;flex-direction:column}
+.pots-showcase-grid{display:flex;gap:20px;width:100%;min-width:0;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.pots-showcase-grid::-webkit-scrollbar{display:none}
+.pots-showcase-grid .pot-card-v2{flex:0 0 clamp(250px,27vw,330px);width:auto;min-width:0;max-width:calc(100vw - 72px);height:auto;display:flex;flex-direction:column;scroll-snap-align:start}
 .pots-showcase-grid .pot-card-v2 .pot-card-link{display:flex;flex-direction:column;flex:1 1 auto;min-width:0;color:inherit;text-decoration:none}
 .pots-showcase-grid .pot-card-v2 img{width:100%;max-width:100%;aspect-ratio:4/5;object-fit:cover}
 .pots-showcase-grid .pot-card-v2 h3{white-space:normal;overflow-wrap:anywhere;line-height:1.35;font-size:1.05rem}
 .pots-showcase-grid .pot-card-v2 .info{padding:16px 18px 10px;flex:0 0 auto;min-width:0}
 .pots-showcase-grid .pot-card-actions{display:flex;gap:10px;padding:0 18px 18px;margin-top:auto;flex-shrink:0}
 .pots-showcase-grid .pot-card-actions .btn,.pots-showcase-grid .pot-card-actions .btn-wa{flex:1;text-align:center;font-size:.82rem;padding:10px 12px}
-@media(max-width:900px){.pots-showcase-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:640px){.pots-showcase-grid{grid-template-columns:minmax(0,1fr)}.pots-showcase-grid .pot-card-actions{flex-direction:column}}
+@media(max-width:640px){.pots-showcase-grid .pot-card-v2{flex-basis:min(82vw,300px)}.pots-showcase-grid .pot-card-actions{flex-direction:column}}
 
 /* ===== Polish pass v9 — client marquee, journal CTA, footer logo (override) ===== */
 .logo-footer img{height:44px;max-width:180px;object-fit:contain;object-position:left center;filter:none!important;opacity:1!important;background:transparent}
@@ -981,7 +981,7 @@ justify-content:flex-end;
 color:#fff;
 }
 .about-audience-copy .eyebrow{color:var(--lime);margin-bottom:8px}
-.about-audience-copy h3{margin:0;font-size:clamp(1.2rem,2.2vw,1.45rem;line-height:1.25;max-width:22ch}
+.about-audience-copy h3{margin:0;font-size:clamp(1.2rem,2.2vw,1.45rem);line-height:1.25;max-width:22ch}
 .about-clients{padding:clamp(36px,5vw,52px) 0}
 .about-clients .sec{margin:8px auto 22px}
 .about-cta-wrap{padding-bottom:clamp(48px,6vw,64px)}
@@ -1071,4 +1071,61 @@ font-family:'Fraunces',Georgia,serif;
 }
 @media(prefers-reduced-motion:reduce){
 .gs-service{transition:none}
+}
+
+/* ===== Responsive UI audit — homepage category menu and balanced media ===== */
+.home-category-menu{background:#fff4d8;border-bottom:1px solid #eadfbd;padding:clamp(18px,2.8vw,30px) 0 clamp(16px,2.4vw,24px)}
+.home-category-menu .container{max-width:1340px}
+.home-category-rail{display:flex;align-items:flex-start;gap:clamp(18px,2.8vw,40px);overflow-x:auto;overflow-y:hidden;padding:2px 4px 10px;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:rgba(22,48,31,.25) transparent;-webkit-overflow-scrolling:touch}
+.home-category-item{flex:0 0 clamp(92px,8.5vw,118px);display:flex;flex-direction:column;align-items:center;gap:12px;color:var(--forest);text-align:center;text-decoration:none;font-size:clamp(.82rem,1.15vw,.98rem);line-height:1.2;scroll-snap-align:start}
+.home-category-image{display:block;width:clamp(82px,8vw,108px);aspect-ratio:1;border-radius:50%;overflow:hidden;background:#fff;border:3px solid #fff;box-shadow:0 3px 12px rgba(22,48,31,.08);transition:transform .25s ease,box-shadow .25s ease}
+.home-category-image img{width:100%;height:100%;object-fit:cover}
+.home-category-item:hover .home-category-image,.home-category-item:focus-visible .home-category-image{transform:translateY(-3px);box-shadow:0 8px 20px rgba(22,48,31,.14)}
+
+.green-spaces-editorial{background:#173f2a;padding:clamp(72px,10vw,120px) 0}
+.green-spaces-bg{display:none!important;background:none!important}
+.green-spaces-inner{max-width:980px}
+
+img{max-width:100%}
+.container{width:min(100% - clamp(32px,6vw,80px),1200px)}
+.btn,.btn-wa,button,a{touch-action:manipulation}
+.btn,.btn-wa{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.pd{align-items:start}
+.pd>img.main{width:100%;max-height:min(70vh,720px);object-fit:cover}
+.grid>*{min-width:0}
+.blog-content img,.about-page img{height:auto}
+
+@media(min-width:1440px){
+.container{max-width:1280px}
+.hero-v4 .inner{max-width:860px}
+.plant-rail .plant-card-v2{flex-basis:280px}
+}
+@media(max-width:900px){
+.home-category-menu{padding-top:16px}
+.pillar-grid-editorial .pillar{min-height:clamp(280px,55vw,380px)}
+.green-spaces-inner{max-width:none}
+.pd>img.main{max-height:620px}
+}
+@media(max-width:640px){
+:root{--section-y:clamp(48px,14vw,68px)}
+.container{width:min(100% - 32px,1200px)}
+.home-category-rail{gap:16px;margin-right:-16px;padding-right:16px}
+.home-category-item{flex-basis:84px;font-size:.78rem;gap:9px}
+.home-category-image{width:76px}
+.hero-v4 .inner{padding-left:20px;padding-right:20px}
+.hero-v4 h1{font-size:clamp(2.15rem,11vw,3.1rem)}
+.sec-display{font-size:clamp(1.8rem,9vw,2.35rem)}
+.pillar-grid-editorial .pillar{min-height:300px}
+.green-nav a{padding:15px}
+.pd>img.main{max-height:72vh}
+.plant-card-v2 .pic{aspect-ratio:4/4.6}
+.blog-card-home .blog-card-img{aspect-ratio:16/11}
+}
+@media(max-width:380px){
+.container{width:calc(100% - 24px)}
+.carousel-shell{padding:0 28px}
+.home-category-item{flex-basis:78px}
+.home-category-image{width:70px}
+.hero-actions{align-items:stretch}
+.hero-actions .btn,.hero-actions .btn-wa{width:100%}
 }
