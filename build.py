@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build Indore Nursery static site: Excel sync → generate → SEO inventory."""
+"""Build Indore Nursery static site: catalog sync → generate → SEO inventory."""
 
 import os
 import subprocess
@@ -17,7 +17,7 @@ def main():
     excel = os.path.join(ROOT, "data", "excel", "indore_nursery_products.xlsx")
     if not os.path.isfile(excel):
         run([sys.executable, "scripts/migrate_catalog_to_excel.py"])
-    run([sys.executable, "scripts/sync_excel.py"])
+    run([sys.executable, "scripts/sync_catalog.py"])
     run([sys.executable, "scripts/sync_blog_images.py"])
     run([sys.executable, "build/generator.py"])
     run([sys.executable, "scripts/seo_inventory.py"])

@@ -10,12 +10,16 @@ Premium static site for **Indore Nursery**: curated plants, pots & planters (Exc
 
 ## Client workflow (products)
 
+**Recommended (live sync):** edit **Google Sheets** → deploy pulls latest data. Setup: [docs/GOOGLE_SHEETS.md](docs/GOOGLE_SHEETS.md).
+
+**Local / offline:** edit `data/excel/indore_nursery_products.xlsx` (omit `GOOGLE_SHEETS_SPREADSHEET_ID`).
+
 ```
-Edit data/excel/indore_nursery_products.xlsx
+Edit Google Sheet (Plants + Pots)   OR   Edit data/excel/indore_nursery_products.xlsx
         ↓
-python3 build.py    # or: ./build.sh
+python3 build.py    # sync_catalog → generate → SEO
         ↓
-Deploy site/ (Cloudflare Pages)
+Deploy site/ (Vercel / Cloudflare Pages)
 ```
 
 On Linux, if you see `python: command not found`, use **`python3`** (not `python`).
@@ -34,7 +38,8 @@ Initial workbook: `python scripts/migrate_catalog_to_excel.py`
 | `data/seo/` | URL inventory + migration mapping |
 | `lib/` | Config, shell, WhatsApp helpers |
 | `build/generator.py` | Site generator |
-| `scripts/sync_excel.py` | Excel → JSON |
+| `scripts/sync_catalog.py` | Google Sheets or Excel → JSON |
+| `scripts/push_catalog_to_google_sheets.py` | Seed Sheets from Excel |
 | `site/` | Built static output (~590 URLs) |
 | `parts/gen6–8`, `gen7` | Rich events/season pages (merged into build) |
 
