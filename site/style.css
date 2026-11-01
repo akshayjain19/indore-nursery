@@ -309,7 +309,7 @@ footer .cols a:hover{color:var(--lime);opacity:1}
 .an-pill a:hover{color:var(--lime)}
 
 /* ===== Redesign v4 — pillars, filters, pot variants, green spaces ===== */
-.hero-v4{min-height:min(92vh,820px);display:flex;align-items:flex-end;color:#fff;background:linear-gradient(105deg,rgba(8,20,11,.88) 0%,rgba(8,20,11,.35) 55%,rgba(8,20,11,.15)),url('/img/home/hero.jpg') center 42%/cover}
+.hero-v4{min-height:min(78vh,700px);display:flex;align-items:flex-end;color:#fff;background:linear-gradient(105deg,rgba(30,24,18,.82) 0%,rgba(30,24,18,.34) 55%,rgba(30,24,18,.12)),url('/img/home/indoor.jpg') center 44%/cover}
 .hero-v4 .inner{width:100%;max-width:1180px;margin:0 auto;padding:clamp(80px,12vw,140px) 22px 72px}
 .hero-v4 h1{font-size:clamp(2.4rem,6vw,4.5rem);line-height:1.05;margin:14px 0 18px;max-width:11ch}
 .hero-v4 .lead{font-size:clamp(1rem,2vw,1.2rem);max-width:520px;opacity:.92;margin-bottom:28px}
@@ -1074,11 +1074,11 @@ font-family:'Fraunces',Georgia,serif;
 }
 
 /* ===== Responsive UI audit — homepage category menu and balanced media ===== */
-.home-category-menu{background:#fff4d8;border-bottom:1px solid #eadfbd;padding:clamp(18px,2.8vw,30px) 0 clamp(16px,2.4vw,24px)}
+.home-category-menu{background:#fff4d8;border-bottom:1px solid #eadfbd;padding:14px 0 12px}
 .home-category-menu .container{max-width:1340px}
-.home-category-rail{display:flex;align-items:flex-start;gap:clamp(18px,2.8vw,40px);overflow-x:auto;overflow-y:hidden;padding:2px 4px 10px;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:rgba(22,48,31,.25) transparent;-webkit-overflow-scrolling:touch}
-.home-category-item{flex:0 0 clamp(92px,8.5vw,118px);display:flex;flex-direction:column;align-items:center;gap:12px;color:var(--forest);text-align:center;text-decoration:none;font-size:clamp(.82rem,1.15vw,.98rem);line-height:1.2;scroll-snap-align:start}
-.home-category-image{display:block;width:clamp(82px,8vw,108px);aspect-ratio:1;border-radius:50%;overflow:hidden;background:#fff;border:3px solid #fff;box-shadow:0 3px 12px rgba(22,48,31,.08);transition:transform .25s ease,box-shadow .25s ease}
+.home-category-rail{display:flex;align-items:flex-start;gap:clamp(14px,2vw,24px);overflow-x:auto;overflow-y:hidden;padding:2px 4px 8px;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:rgba(22,48,31,.25) transparent;-webkit-overflow-scrolling:touch}
+.home-category-item{flex:0 0 clamp(78px,7vw,92px);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--forest);text-align:center;text-decoration:none;font-size:clamp(.74rem,1vw,.86rem);line-height:1.2;scroll-snap-align:start}
+.home-category-image{display:block;width:clamp(66px,6vw,78px);aspect-ratio:1;border-radius:50%;overflow:hidden;background:#fff;border:3px solid #fff;box-shadow:0 3px 12px rgba(22,48,31,.08);transition:transform .25s ease,box-shadow .25s ease}
 .home-category-image img{width:100%;height:100%;object-fit:cover}
 .home-category-item:hover .home-category-image,.home-category-item:focus-visible .home-category-image{transform:translateY(-3px);box-shadow:0 8px 20px rgba(22,48,31,.14)}
 
@@ -1101,7 +1101,7 @@ img{max-width:100%}
 .plant-rail .plant-card-v2{flex-basis:280px}
 }
 @media(max-width:900px){
-.home-category-menu{padding-top:16px}
+.home-category-menu{padding-top:12px}
 .pillar-grid-editorial .pillar{min-height:clamp(280px,55vw,380px)}
 .green-spaces-inner{max-width:none}
 .pd>img.main{max-height:620px}
@@ -1110,8 +1110,8 @@ img{max-width:100%}
 :root{--section-y:clamp(48px,14vw,68px)}
 .container{width:min(100% - 32px,1200px)}
 .home-category-rail{gap:16px;margin-right:-16px;padding-right:16px}
-.home-category-item{flex-basis:84px;font-size:.78rem;gap:9px}
-.home-category-image{width:76px}
+.home-category-item{flex-basis:76px;font-size:.74rem;gap:7px}
+.home-category-image{width:66px}
 .hero-v4 .inner{padding-left:20px;padding-right:20px}
 .hero-v4 h1{font-size:clamp(2.15rem,11vw,3.1rem)}
 .sec-display{font-size:clamp(1.8rem,9vw,2.35rem)}
@@ -1124,8 +1124,8 @@ img{max-width:100%}
 @media(max-width:380px){
 .container{width:calc(100% - 24px)}
 .carousel-shell{padding:0 28px}
-.home-category-item{flex-basis:78px}
-.home-category-image{width:70px}
+.home-category-item{flex-basis:70px}
+.home-category-image{width:60px}
 .hero-actions{align-items:stretch}
 .hero-actions .btn,.hero-actions .btn-wa{width:100%}
 }
